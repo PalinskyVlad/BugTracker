@@ -5,9 +5,15 @@ package com.bugtracker.entity.enums;
  */
 public enum IssueTypeEnum {
     BUG,
-    IMPROVEMENT,
     NEW_FEATURE,
-    TASK;
+    TASK,
+    IMPROVEMENT,
+    REFACTORING,
+    DEFECT,
+    STORY,
+    EPIC,
+    SUPPORT,
+    PRUNING;
 
     IssueTypeEnum() {
 
