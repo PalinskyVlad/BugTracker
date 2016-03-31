@@ -30,6 +30,7 @@ public class IssueController {
         System.out.println("1");
         System.out.println("1");
         System.out.println(issue.getName());
+        System.out.println(issue.getIssueType());
         ModelAndView modelAndView = new ModelAndView();
         return modelAndView;
     }

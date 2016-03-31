@@ -18,12 +18,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#myModal").modal('show');
-        });
-    </script>
-
+    <link href="<c:url value="/pages/css/dropdowns-enhancement.css" />" rel="stylesheet">
+    <script src="/pages/js/dropdowns-enhancement.js.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
