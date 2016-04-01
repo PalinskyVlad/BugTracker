@@ -21,16 +21,15 @@ public class IssueController {
     private IssueService issueService;
 
     @RequestMapping(value = "/createIssue", method = RequestMethod.POST)
-    public ModelAndView createIssue(Issue issue) {
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
+    public ModelAndView createIssue(Issue issue, String[] NAME) {
         System.out.println(issue.getName());
         System.out.println(issue.getIssueType());
+        System.out.println(issue.getSummary());
+        System.out.println(issue.getPriority());
+        if (NAME != null)
+        for(int i = 0; i < NAME.length; i++) {
+            System.out.println(NAME[i]);
+        }
         ModelAndView modelAndView = new ModelAndView();
         return modelAndView;
     }
