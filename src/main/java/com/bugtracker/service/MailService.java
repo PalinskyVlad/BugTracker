@@ -1,5 +1,6 @@
 package com.bugtracker.service;
 
+import com.bugtracker.dto.UserDTO;
 import com.bugtracker.entity.User;
 
 /**
@@ -7,6 +8,6 @@ import com.bugtracker.entity.User;
  */
 public interface MailService {
 
-    void sendRegistrationMail(User user);
+    void sendRegistrationMail(UserDTO userDTO);
 
 }

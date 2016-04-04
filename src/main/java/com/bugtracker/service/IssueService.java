@@ -1,6 +1,6 @@
 package com.bugtracker.service;
 
-import com.bugtracker.entity.Issue;
+import com.bugtracker.dto.IssueDTO;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface IssueService {
 
-    Issue addIssue(Issue issue);
+    IssueDTO addIssue(IssueDTO issueDTO);
     void delete(long id);
-    Issue getByName(String name);
-    Issue editIssue(Issue issue);
-    List<Issue> getAll();
+    IssueDTO getByName(String name);
+    IssueDTO editIssue(IssueDTO issue);
+    List<IssueDTO> getAll();
 
 }

@@ -1,5 +1,6 @@
 package com.bugtracker.service;
 
+import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.entity.Project;
 
 import java.util.List;
@@ -9,10 +10,10 @@ import java.util.List;
  */
 public interface ProjectService {
 
-    Project addProject(Project project);
+    ProjectDTO addProject(ProjectDTO projectDTO);
     void delete(long id);
-    Project getByName(String name);
-    Project editProject(Project project);
-    List<Project> getAll();
+    ProjectDTO getByName(String name);
+    ProjectDTO editProject(ProjectDTO projectDTO);
+    List<ProjectDTO> getAll();
 
 }

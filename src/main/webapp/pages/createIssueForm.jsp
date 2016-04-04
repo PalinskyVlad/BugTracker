@@ -28,10 +28,17 @@
                     </div>
                     <div class="modal-body">
 
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Issue Name </label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" id="name" name ="name">
+                            </div>
+                        </div>
+
                         <div class = "form-group">
                             <label class="col-lg-3 control-label">Project</label>
                             <div class="col-lg-6">
-                            <select class="selectpicker" data-live-search="true" name = "name" style="width: 40%;margin-top: 2%">
+                            <select class="selectpicker" data-live-search="true" name = "projectName" style="width: 40%;margin-top: 2%">
                                 <option>FirstProject</option>
                                 <option>Second Project</option>
                                 <option>Third Project</option>

@@ -1,5 +1,6 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.UserDTO;
 import com.bugtracker.entity.User;
 import com.bugtracker.service.MailService;
 import com.bugtracker.service.UserService;
@@ -18,15 +19,15 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private MailSender MailSender;
 
-    public void sendRegistrationMail(User user) {
+    public void sendRegistrationMail(UserDTO userDTO) {
         String secretCode = java.util.UUID.randomUUID().toString();
-        user.setSecretCode(secretCode);
+        userDTO.setSecretCode(secretCode);
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(user.getEmail());
+        message.setTo(userDTO.getEmail());
         message.setFrom("bugtracker.hunter@gmail.com");
         message.setSubject("Please verify your e-mail address");
-        message.setText("Hi " + user.getLastName() + " " + user.getFirstName() + ",\n" +
+        message.setText("Hi " + userDTO.getLastName() + " " + userDTO.getFirstName() + ",\n" +
                 "Please verify your email address so we know that it's really you!" + "\n" +
                 "localhost:8080/confirm/" + secretCode);
         MailSender.send((SimpleMailMessage) message);

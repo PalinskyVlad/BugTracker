@@ -1,6 +1,8 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.entity.Project;
+import com.bugtracker.mapper.ProjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.ProjectRepository;
@@ -17,9 +19,12 @@ public class ProjectServiceImpl implements ProjectService{
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private ProjectMapper mapper;
+
     @Override
-    public Project addProject(Project project) {
-        Project savedProject = projectRepository.saveAndFlush(project);
+    public ProjectDTO addProject(ProjectDTO projectDTO) {
+        ProjectDTO savedProject = mapper.projectToProjectDTO(projectRepository.saveAndFlush(mapper.projectDTOToProject(projectDTO)));
 
         return savedProject;
     }
@@ -30,17 +35,17 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
-    public Project getByName(String name) {
-        return projectRepository.findByName(name);
+    public ProjectDTO getByName(String name) {
+        return mapper.projectToProjectDTO(projectRepository.findByName(name));
     }
 
     @Override
-    public Project editProject(Project project) {
-        return projectRepository.saveAndFlush(project);
+    public ProjectDTO editProject(ProjectDTO projectDTO) {
+        return mapper.projectToProjectDTO(projectRepository.saveAndFlush(mapper.projectDTOToProject(projectDTO)));
     }
 
     @Override
-    public List<Project> getAll() {
-        return projectRepository.findAll();
+    public List<ProjectDTO> getAll() {
+        return mapper.projectsToProjectDTOs(projectRepository.findAll());
     }
 }

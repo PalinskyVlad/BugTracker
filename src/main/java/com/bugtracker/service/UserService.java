@@ -1,5 +1,6 @@
 package com.bugtracker.service;
 
+import com.bugtracker.dto.UserDTO;
 import com.bugtracker.entity.User;
 
 import java.util.List;
@@ -9,16 +10,13 @@ import java.util.List;
  */
 public interface UserService {
 
-    User addUser(User user);
+    UserDTO addUser(UserDTO userDTO);
     void delete(long id);
-    User getByUsername(String username);
-    User getByEmail(String email);
-    User editUser(User user);
-    List<User> getAll();
+    UserDTO getByUsername(String username);
+    UserDTO getByEmail(String email);
+    UserDTO editUser(UserDTO userDTO);
+    List<UserDTO> getAll();
     boolean confirmSecretCode(String secretCode);
     boolean checkEmail(String email);
     boolean checkUsername(String username);
-
-
-
 }

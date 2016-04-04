@@ -1,6 +1,8 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.UserDTO;
 import com.bugtracker.entity.User;
+import com.bugtracker.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.UserRepository;
@@ -17,9 +19,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserMapper mapper;
+
     @Override
-    public User addUser(User user) {
-        User savedUser = userRepository.saveAndFlush(user);
+    public UserDTO addUser(UserDTO userDTO) {
+        UserDTO savedUser = mapper.userToUserDTO(userRepository.saveAndFlush(mapper.userDTOToUser(userDTO)));
 
         return savedUser;
     }
@@ -30,18 +35,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserDTO getByUsername(String username) {
+        return mapper.userToUserDTO(userRepository.findByUsername(username));
     }
 
     @Override
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public UserDTO getByEmail(String email) {
+        return mapper.userToUserDTO(userRepository.findByEmail(email));
     }
 
     @Override
-    public User editUser(User user) {
-        return userRepository.saveAndFlush(user);
+    public UserDTO editUser(UserDTO userDTO) {
+        return mapper.userToUserDTO(userRepository.saveAndFlush(mapper.userDTOToUser(userDTO)));
     }
 
     @Override
@@ -61,16 +66,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserDTO> getAll() {
+        return mapper.usersToUserDTOs(userRepository.findAll());
     }
 
     @Override
     public boolean confirmSecretCode(String secretCode) {
-        User user = userRepository.findBySecretCode(secretCode);
-        if (user == null) { return false; }
-        user.setConfirmed(true);
-        editUser(user);
+        UserDTO userDTO = mapper.userToUserDTO(userRepository.findBySecretCode(secretCode));
+        if (userDTO == null) { return false; }
+        userDTO.setConfirmed(true);
+        editUser(userDTO);
         return true;
     }
 }

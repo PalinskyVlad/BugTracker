@@ -1,38 +1,33 @@
-package com.bugtracker.entity;
+package com.bugtracker.dto;
 
 import com.bugtracker.entity.Issue;
+import com.bugtracker.entity.ProjectComponent;
+import com.bugtracker.entity.ProjectVersion;
 
-import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Created by Vlados on 14.03.2016.
+ * Created by Vlados on 4/4/2016.
  */
-@Entity
-@Table(name = "project")
-public class Project {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ProjectDTO {
     private long id;
-
-    @Column(name = "name", length = 32, nullable = false, unique = true)
     private String name;
-
-    @Column(name = "description")
     private String description;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private Set<ProjectComponent> components;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private Set<ProjectVersion> versions;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private Set<Issue> issues;
 
-    public Project() {
+    public ProjectDTO(long id, String name, String description, Set<ProjectComponent> components
+                        , Set<ProjectVersion> versions, Set<Issue> issues) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.components = components;
+        this.versions = versions;
+        this.issues = issues;
+    }
 
+    public ProjectDTO() {
     }
 
     public long getId() {

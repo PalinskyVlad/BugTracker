@@ -1,6 +1,8 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.ProjectVersionDTO;
 import com.bugtracker.entity.ProjectVersion;
+import com.bugtracker.mapper.ProjectVersionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.ProjectVersionRepository;
@@ -17,9 +19,13 @@ public class ProjectVersionServiceImpl implements ProjectVersionService {
     @Autowired
     private ProjectVersionRepository projectVersionRepository;
 
+    @Autowired
+    private ProjectVersionMapper mapper;
+
     @Override
-    public ProjectVersion addProjectComponent(ProjectVersion projectComponent) {
-        ProjectVersion savedProjectVercion = projectVersionRepository.saveAndFlush(projectComponent);
+    public ProjectVersionDTO addProjectVersion(ProjectVersionDTO projectVersionDTO) {
+        ProjectVersionDTO savedProjectVercion = mapper.projectVersionToProjectVersionDTO(projectVersionRepository
+                                                .saveAndFlush(mapper.projectVersionDTOToProjectVersion(projectVersionDTO)));
 
         return savedProjectVercion;
     }
@@ -30,17 +36,17 @@ public class ProjectVersionServiceImpl implements ProjectVersionService {
     }
 
     @Override
-    public ProjectVersion getByName(String name) {
-        return projectVersionRepository.getByName(name);
+    public ProjectVersionDTO getByName(String name) {
+        return mapper.projectVersionToProjectVersionDTO(projectVersionRepository.getByName(name));
     }
 
     @Override
-    public ProjectVersion editProjectComponent(ProjectVersion projectComponent) {
-        return projectVersionRepository.saveAndFlush(projectComponent);
+    public ProjectVersionDTO editProjectVersion(ProjectVersionDTO projectVersionDTO) {
+        return mapper.projectVersionToProjectVersionDTO(projectVersionRepository.saveAndFlush(mapper.projectVersionDTOToProjectVersion(projectVersionDTO)));
     }
 
     @Override
-    public List<ProjectVersion> getAll() {
-        return projectVersionRepository.findAll();
+    public List<ProjectVersionDTO> getAll() {
+        return mapper.projectVersionsToProjectVersionDTOs(projectVersionRepository.findAll());
     }
 }

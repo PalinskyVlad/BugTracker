@@ -1,37 +1,29 @@
-package com.bugtracker.entity;
+package com.bugtracker.dto;
 
 import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.Project;
 
-import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Created by Vlados on 14.03.2016.
+ * Created by Vlados on 4/4/2016.
  */
-@Entity
-@Table(name = "project_version")
-public class ProjectVersion {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ProjectVersionDTO {
     private long id;
-
-    @Column(name = "name", length = 32, nullable = false)
     private String name;
-
-    @ManyToOne(fetch =  FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "project_id", nullable = false)
     private Project project;
-
-    @Column(name = "release")
     private boolean release;
-
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "affectsVersions")
     private Set<Issue> issues;
 
-    public ProjectVersion() {
+    public ProjectVersionDTO(long id, String name, Project project, Boolean release, Set<Issue> issues) {
+        this.id = id;
+        this.name = name;
+        this.project = project;
+        this.release = release;
+        this.issues = issues;
+    }
 
+    public ProjectVersionDTO() {
     }
 
     public long getId() {
@@ -58,11 +50,11 @@ public class ProjectVersion {
         this.project = project;
     }
 
-    public boolean isRelease() {
+    public Boolean isRelease() {
         return release;
     }
 
-    public void setRelease(boolean release) {
+    public void setRelease(Boolean release) {
         this.release = release;
     }
 

@@ -1,6 +1,8 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.ProjectComponentDTO;
 import com.bugtracker.entity.ProjectComponent;
+import com.bugtracker.mapper.ProjectComponentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.ProjectComponentRepository;
@@ -17,9 +19,13 @@ public class ProjectComponentServiceImpl implements ProjectComponentService{
     @Autowired
     private ProjectComponentRepository projectComponentRepository;
 
+    @Autowired
+    private ProjectComponentMapper mapper;
+
     @Override
-    public ProjectComponent addProjectComponent(ProjectComponent projectComponent) {
-        ProjectComponent savedProjectComponent = projectComponentRepository.saveAndFlush(projectComponent);
+    public ProjectComponentDTO addProjectComponent(ProjectComponentDTO projectComponentDTO) {
+        ProjectComponentDTO savedProjectComponent = mapper.projectComponentToProjectComponentDTO(projectComponentRepository
+                                                    .saveAndFlush(mapper.projectComponentDTOToProjectComponent(projectComponentDTO)));
 
         return savedProjectComponent;
     }
@@ -30,17 +36,18 @@ public class ProjectComponentServiceImpl implements ProjectComponentService{
     }
 
     @Override
-    public ProjectComponent getByName(String name) {
-        return projectComponentRepository.getByName(name);
+    public ProjectComponentDTO getByName(String name) {
+        return mapper.projectComponentToProjectComponentDTO(projectComponentRepository.getByName(name));
     }
 
     @Override
-    public ProjectComponent editProjectComponent(ProjectComponent projectComponent) {
-        return null;
+    public ProjectComponentDTO editProjectComponent(ProjectComponentDTO projectComponentDTO) {
+        return mapper.projectComponentToProjectComponentDTO(projectComponentRepository
+                .saveAndFlush(mapper.projectComponentDTOToProjectComponent(projectComponentDTO)));
     }
 
     @Override
-    public List<ProjectComponent> getAll() {
-        return null;
+    public List<ProjectComponentDTO> getAll() {
+        return mapper.projectComponentsToProjectComponentDTOs(projectComponentRepository.findAll());
     }
 }

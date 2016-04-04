@@ -1,5 +1,6 @@
 package com.bugtracker.service;
 
+import com.bugtracker.dto.ProjectVersionDTO;
 import com.bugtracker.entity.ProjectVersion;
 
 import java.util.List;
@@ -9,10 +10,10 @@ import java.util.List;
  */
 public interface ProjectVersionService {
 
-    ProjectVersion addProjectComponent(ProjectVersion projectComponent);
+    ProjectVersionDTO addProjectVersion(ProjectVersionDTO projectVersionDTO);
     void delete(long id);
-    ProjectVersion getByName(String name);
-    ProjectVersion editProjectComponent(ProjectVersion projectComponent);
-    List<ProjectVersion> getAll();
+    ProjectVersionDTO getByName(String name);
+    ProjectVersionDTO editProjectVersion(ProjectVersionDTO projectVersionDTO);
+    List<ProjectVersionDTO> getAll();
 
 }

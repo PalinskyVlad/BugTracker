@@ -1,6 +1,8 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.IssueDTO;
 import com.bugtracker.entity.Issue;
+import com.bugtracker.mapper.IssueMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.IssueRepository;
@@ -17,10 +19,13 @@ public class IssueServiceImpl implements IssueService {
     @Autowired
     private IssueRepository issueRepository;
 
+    @Autowired
+    private IssueMapper mapper;
+
 
     @Override
-    public Issue addIssue(Issue issue) {
-        Issue savedIssue = issueRepository.saveAndFlush(issue);
+    public IssueDTO addIssue(IssueDTO issueDTO) {
+        IssueDTO savedIssue = mapper.issueToIssueDTO(issueRepository.saveAndFlush(mapper.issueDTOToIssue(issueDTO)));
 
         return savedIssue;
     }
@@ -31,17 +36,17 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Issue getByName(String name) {
-        return issueRepository.getByName(name);
+    public IssueDTO getByName(String name) {
+        return mapper.issueToIssueDTO(issueRepository.getByName(name));
     }
 
     @Override
-    public Issue editIssue(Issue issue) {
-        return issueRepository.saveAndFlush(issue);
+    public IssueDTO editIssue(IssueDTO issueDTO) {
+        return mapper.issueToIssueDTO(issueRepository.saveAndFlush(mapper.issueDTOToIssue(issueDTO)));
     }
 
     @Override
-    public List<Issue> getAll() {
-        return issueRepository.findAll();
+    public List<IssueDTO> getAll() {
+        return mapper.issuesToIssueDTOs(issueRepository.findAll());
     }
 }

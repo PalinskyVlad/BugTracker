@@ -1,5 +1,6 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.UserDTO;
 import com.bugtracker.entity.User;
 import com.bugtracker.entity.enums.UserRoleEnum;
 import com.bugtracker.service.UserService;
@@ -27,19 +28,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userService.getByUsername(username);
+        UserDTO userDTO = userService.getByUsername(username);
 
-        if (!user.isConfirmed()) {
-            user = null;
+        if (!userDTO.isConfirmed()) {
+            userDTO = null;
         }
 
         Set<GrantedAuthority> roles = new HashSet();
-        roles.add(new SimpleGrantedAuthority(user.getRole().name()));
+        roles.add(new SimpleGrantedAuthority(userDTO.getRole().name()));
 
 
         UserDetails userDetails =
-                new org.springframework.security.core.userdetails.User(user.getUsername(),
-                                                                       user.getPassword(), roles);
+                new org.springframework.security.core.userdetails.User(userDTO.getUsername(),
+                                                                       userDTO.getPassword(), roles);
         return userDetails;
     }
 }

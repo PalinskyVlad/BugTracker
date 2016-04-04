@@ -1,5 +1,6 @@
 package com.bugtracker.service;
 
+import com.bugtracker.dto.ProjectComponentDTO;
 import com.bugtracker.entity.ProjectComponent;
 
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.List;
  * Created by Vlados on 15.03.2016.
  */
 public interface ProjectComponentService {
-    ProjectComponent addProjectComponent(ProjectComponent projectComponent);
+    ProjectComponentDTO addProjectComponent(ProjectComponentDTO projectComponentDTO);
     void delete(long id);
-    ProjectComponent getByName(String name);
-    ProjectComponent editProjectComponent(ProjectComponent projectComponent);
-    List<ProjectComponent> getAll();
+    ProjectComponentDTO getByName(String name);
+    ProjectComponentDTO editProjectComponent(ProjectComponentDTO projectComponentDTO);
+    List<ProjectComponentDTO> getAll();
 }
