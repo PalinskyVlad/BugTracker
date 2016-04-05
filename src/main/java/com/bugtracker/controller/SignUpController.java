@@ -56,8 +56,8 @@ public class SignUpController {
             return modelAndView;
         }
 
-        mailService.sendRegistrationMail(user);
-        userService.addUser(user);
+     //   mailService.sendRegistrationMail(user);
+       // userService.addUser(user);
 
         modelAndView.setViewName("signUpSuccess");
 

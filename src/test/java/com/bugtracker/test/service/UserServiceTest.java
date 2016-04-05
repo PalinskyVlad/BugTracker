@@ -39,6 +39,6 @@ public class UserServiceTest {
 
    // @Test
     public void testSaveUser() throws Exception {
-        userService.addUser(UserUtil.createUser());
+        //addUser(UserUtil.createUser());
     }
 }
