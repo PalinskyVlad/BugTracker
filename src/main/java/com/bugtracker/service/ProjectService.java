@@ -15,5 +15,6 @@ public interface ProjectService {
     ProjectDTO getByName(String name);
     ProjectDTO editProject(ProjectDTO projectDTO);
     List<ProjectDTO> getAll();
+    List<String> getAllNames();
 
 }

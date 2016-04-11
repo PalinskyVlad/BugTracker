@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Log in BugHunter</title>
+    <title>Log in IT</title>
     <link href="<c:url value="/pages/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/pages/css/jumbotron-narrow.css" />" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -23,35 +23,52 @@
 
 <jsp:include page='navigation.jsp' />
     <div class = "container">
-    <div class="jumbotron" style="width: 50%;margin-top: 20px; margin: 0 auto">
+    <div class="jumbotron" style="width: 50%; margin: auto">
 
-        <h2 class="form-signin-heading"><spring:message code="log.in.welcome"/></h2>
+        <h2 class="form-signin-heading" style="margin-top: 0"><spring:message code="log.in.welcome"/></h2>
         <c:url value="/j_spring_security_check" var="loginUrl" />
-        <form action="${loginUrl}" method="post">
+        <form class="form-horizontal" action="${loginUrl}" method="post">
 
-            <div class="field-group">
-                 <label accesskey="u" for="login-form-username"><spring:message code="log.in.username"/></label></td>
-                 <td><input  style="width: 60%;" type="text" id = "login-form-username"class="form-control" name="j_username">
-            </div>
-             <div class="field-group">
-                <label accesskey="p" for="login-form-password" id="passwordlabel"><spring:message code="log.in.password"/></label>
-                <input style="width: 60%;" type="password" id = "login-form-password" class="form-control" name="j_password">
+            <div class="form-group">
+                <label class="col-lg-3 control-label" accesskey="u" for="login-form-username"><spring:message code="log.in.username"/></label>
+                <div class="col-lg-7">
+                    <input  style="width: 80%;" type="text" id = "login-form-username"class="form-control" name="j_username">
+                </div>
             </div>
 
-            <div style = "margin-left:10px" class="field-group">
-                <label  class="checkbox">
-                <input type="checkbox" value="remember-me">
-                    <spring:message code="log.in.message.remember.me"/>
-            </label>
+            <div class="form-group">
+                <label class="col-lg-3 control-label" accesskey="p" for="login-form-password" id="passwordlabel"><spring:message code="log.in.password"/></label>
+                <div class="col-lg-7">
+                    <input style="width: 80%;" type="password" id = "login-form-password" class="form-control" name="j_password">
+                </div>
             </div>
-            <spring:message code="log.in.message.not.member"/> <a href="/signup"> <spring:message code="log.in.sign.up"/></a>
-            <div class = "button">
-                <button class="btn btn-sm btn-primary btn-primary" type="submit" style="margin-top: 10px"><spring:message code="log.in.log.in"/></button>
-                <a href="/signup"> <spring:message code="log.in.message.forgot.password"/></a>
+
+            <div class="form-group" style="margin-top: 0; margin-bottom: 1%;">
+                <label class="col-lg-3 control-label"></label>
+                <div class="checkbox col-lg-7">
+                    <label >
+                        <input type="checkbox" value="remember-me">
+                        <spring:message code="log.in.message.remember.me"/>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 0; margin-bottom: 1%;">
+                <label class="col-lg-3 control-label"></label>
+                <div class="col-lg-7">
+                    <spring:message code="log.in.message.not.member"/> <a href="/signup"> <spring:message code="log.in.sign.up"/></a>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 0; margin-bottom: 1%;">
+                <label class="col-lg-3 control-label"></label>
+                <div class = "button col-lg-7">
+                    <button class="btn btn-sm btn-primary btn-primary" type="submit"><spring:message code="log.in.log.in"/></button>
+                    <a href="/signup"> <spring:message code="log.in.message.forgot.password"/></a>
+                </div>
             </div>
 
         </form>
-
     </div>
 
 

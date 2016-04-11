@@ -1,6 +1,8 @@
 package com.bugtracker.controller;
 
+import com.bugtracker.dto.UserDTO;
 import com.bugtracker.entity.User;
+import com.bugtracker.mapper.UserMapper;
 import com.bugtracker.service.MailService;
 import com.bugtracker.service.UserService;
 import com.bugtracker.utils.VerifyRecaptcha;
@@ -33,7 +35,7 @@ public class SignUpController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView addUser(@Valid User user , BindingResult result,
+    public ModelAndView addUser(@Valid UserDTO userDTO , BindingResult result,
                                 @RequestParam("g-recaptcha-response") String recaptcha) throws IOException {
 
         ModelAndView modelAndView = new ModelAndView("signUpForm");
@@ -42,12 +44,12 @@ public class SignUpController {
             return modelAndView;
         }
 
-        if (userService.checkEmail(user.getEmail())) {
-            modelAndView.addObject("emailError", "User with the e-mail " + user.getEmail() + " is already registered");
+        if (userService.checkEmail(userDTO.getEmail())) {
+            modelAndView.addObject("emailError", "User with the e-mail " + userDTO.getEmail() + " is already registered");
             return  modelAndView;
         }
-        if (userService.checkUsername(user.getUsername())) {
-            modelAndView.addObject("usernameError", "User with the username " + user.getUsername() + " is already registered");
+        if (userService.checkUsername(userDTO.getUsername())) {
+            modelAndView.addObject("usernameError", "User with the username " + userDTO.getUsername() + " is already registered");
             return modelAndView;
         }
         boolean verify = VerifyRecaptcha.verify(recaptcha);
@@ -56,8 +58,8 @@ public class SignUpController {
             return modelAndView;
         }
 
-     //   mailService.sendRegistrationMail(user);
-       // userService.addUser(user);
+        mailService.sendRegistrationMail(userDTO);
+        userService.addUser(userDTO);
 
         modelAndView.setViewName("signUpSuccess");
 

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Vlados on 15.03.2016.
  */
 @Service
-public class ProjectServiceImpl implements ProjectService{
+public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -42,6 +42,11 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public ProjectDTO editProject(ProjectDTO projectDTO) {
         return mapper.projectToProjectDTO(projectRepository.saveAndFlush(mapper.projectDTOToProject(projectDTO)));
+    }
+
+    @Override
+    public List<String> getAllNames() {
+        return projectRepository.findAllNames();
     }
 
     @Override

@@ -1,6 +1,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="sping" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <html>
@@ -8,15 +9,30 @@
     <title>Navigation</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+                function getProjects() {
+                    var showProjects = $('#showProjects');
+                    showProjects.empty();
+                    $.get("/projects", function (data) {
+                        for (var i in data) {
+                            showProjects.append("<option>" + data[i] + "</option>");
+                        }
+                    });
+                }
+
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js"></script>
     <link href="<c:url value="/pages/css/dropdowns-enhancement.css" />" rel="stylesheet">
     <script src="/pages/js/dropdowns-enhancement.js.js"></script>
+
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation">
+<jsp:include page='createIssueForm.jsp' />
+<jsp:include page='addProjectForm.jsp' />
+<nav class="navbar navbar-default" style="margin-bottom: 0" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -25,7 +41,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src="pages/images/Bug_Fixing-512.png" alt = "Brand" width="60" height="60"></a>
+            <a class="navbar-brand" href="/"><span><img src="/pages/images/repairer.png" alt = "Brand" width="30" height="30"></span> <b alt="Brand" style="color: #2e6da4;"><spring:message code="brand"/></b></a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -70,10 +86,10 @@
                 <sec:authorize access="isAuthenticated()">
                     <ul class = "nav nav-tabs">
                     <il><a class="btn btn-sm btn-primary" href="#addProject" role="button" data-toggle="modal"><spring:message code="navigation.add.project"/></a></il>
-                    <il><a class="btn btn-sm btn-primary" href="#createIssue" role="button" data-toggle="modal"><spring:message code="navigation.create.issue"/></a></il>
+                     <il><a class="btn btn-sm btn-primary" href="#createIssue" onclick="getProjects()" role="button" data-toggle="modal"><spring:message code="navigation.create.issue"/></a></il>
                     </ul>
                 </sec:authorize>
-                </div>
+                    </div>
                 </form>
             </ul>
             <div class = "nav navbar-btn navbar-right" >
@@ -87,14 +103,21 @@
                         <li><a href="<c:url value='?lang=ru'/>">Русский</a></li>
                     </ul>
                 </div>
-                    <sec:authorize access="isAuthenticated()">
-                        <a href="#">username</a>
-                    </sec:authorize>
+
                     <sec:authorize access="!isAuthenticated()">
                         <a class="btn btn-sm btn-success" href="<c:url value="/login" />" role="button"><spring:message code="navigation.log.in"/></a>
                     </sec:authorize>
-                    <sec:authorize access="isAuthenticated()">
-                        <a class="btn btn-sm btn-danger" href="<c:url value="/logout" />" role="button"><spring:message code="navigation.log.out"/></a>
+                <sec:authorize access="isAuthenticated()">
+                        <div class="dropdown navbar-left" style="margin-right: 10px">
+                            <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="<c:url value="/profile" />"><spring:message code="navigation.user.profile"/></a></li>
+                                <li class="divider"></li>
+                                <li><a href="<c:url value="/logout" />"><spring:message code="navigation.user.log.out"/></a></li>
+                            </ul>
+                        </div>
                     </sec:authorize>
             </div>
             <form class="navbar-form navbar-right" role="search">
@@ -108,9 +131,6 @@
 
     </div><!-- /.container-fluid -->
 </nav>
-
-<jsp:include page='addProjectForm.jsp' />
-<jsp:include page='createIssueForm.jsp' />
 
 </body>
 </html>

@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "user")
 public class User implements Serializable {
 
-    private static final ShaPasswordEncoder SHA_PASSWORD_ENCODER = new ShaPasswordEncoder(512);
+    public static final ShaPasswordEncoder SHA_PASSWORD_ENCODER = new ShaPasswordEncoder(512);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +45,7 @@ public class User implements Serializable {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private UserRoleEnum role = UserRoleEnum.USER;
+    private UserRoleEnum role;
 
     @Column(name = "secret_code")
     private String secretCode;
@@ -80,7 +80,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = SHA_PASSWORD_ENCODER.encodePassword(password, null);
+        this.password = password;
     }
 
     public long getId() {

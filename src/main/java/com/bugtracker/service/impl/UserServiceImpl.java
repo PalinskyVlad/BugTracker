@@ -2,6 +2,7 @@ package com.bugtracker.service.impl;
 
 import com.bugtracker.dto.UserDTO;
 import com.bugtracker.entity.User;
+import com.bugtracker.entity.enums.UserRoleEnum;
 import com.bugtracker.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO addUser(UserDTO userDTO) {
+        userDTO.setRole(UserRoleEnum.USER);
+        userDTO.setPassword(User.SHA_PASSWORD_ENCODER.encodePassword(userDTO.getPassword(), null));
         UserDTO savedUser = mapper.userToUserDTO(userRepository.saveAndFlush(mapper.userDTOToUser(userDTO)));
 
         return savedUser;

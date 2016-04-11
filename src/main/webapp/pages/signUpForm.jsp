@@ -110,7 +110,7 @@
         <div class="jumbotron" style="width: 50%;margin-top: 20px; margin: 0 auto">
 
     <h2><spring:message code="sign.up"/></h2>
-    <form:form id = "signUpForm" action="/signup" commandName="user" method="post" onsubmit="return checkForm(this);">
+    <form:form id = "signUpForm" action="/signup" commandName="userDTO" method="post" onsubmit="return checkForm(this);">
 
 
         <div class="field-group">

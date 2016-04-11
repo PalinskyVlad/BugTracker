@@ -12,8 +12,9 @@
     <script src="/pages/js/dropdowns-enhancement.js"></script>
     <script src="/pages/js/bootstrap.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
 
 </head>
 <body>
@@ -39,10 +40,9 @@
                         <div class = "form-group">
                             <label class="col-lg-3 control-label"><spring:message code ="create.issue.project"/></label>
                             <div class="col-lg-6">
-                            <select class="selectpicker" data-live-search="true" name = "projectName" style="width: 40%;margin-top: 2%">
-                                <option>FirstProject</option>
-                                <option>Second Project</option>
-                                <option>Third Project</option>
+                            <select class="form-control" id="showProjects" name = "projectName" style="width: auto;margin-top: 2%">
+                                <option>1Test1</option>
+                                <option>2Test2</option>
                             </select>
                             </div>
                         </div>
@@ -101,6 +101,32 @@
                                     <li><input type="checkbox" id="ID2" name="NAME" value="Documentation"><label for="ID2">Documentation</label></li>
                                     <li><input type="checkbox" id="ID3" name="NAME" value="Infrastructure"><label for="ID3">Infrastructure</label></li>
                                 </ul>
+                            </div>
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="col-lg-3 control-label"><spring:message code ="create.issue.affects.version.s"/></label>
+                            <div class="col-lg-6">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"  data-placeholder="Please select"><spring:message code ="create.issue.affects.please.select"/> <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><input type="checkbox" id="ID4" name="NAME" value="Core"><label for="ID">1.0.0</label></li>
+                                    <li><input type="checkbox" id="ID5" name="NAME" value="Documentation"><label for="ID2">1.0.1</label></li>
+                                    <li><input type="checkbox" id="ID6" name="NAME" value="Infrastructure"><label for="ID3">1.0.2</label></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="height: 100px">
+                            <label class="col-lg-3 control-label"><spring:message code ="create.issue.environment"/></label>
+                            <div class="col-lg-8">
+                                <textarea name="environment" class="form-control" style="height: 100px"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="height: 100px">
+                            <label class="col-lg-3 control-label"><spring:message code ="create.issue.description"/></label>
+                            <div class="col-lg-8">
+                                <textarea name="environment" class="form-control" style="height: 100px"></textarea>
                             </div>
                         </div>
 
