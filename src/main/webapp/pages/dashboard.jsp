@@ -15,9 +15,24 @@
     <link href="<c:url value="/pages/css/jumbotron-narrow.css" />" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        function getProjectsList() {
+            var showProjectsList = $('#showProjectsList');
+            showProjectsList.empty();
+            $.get("/projects", function (data) {
+                for (var i in data) {
+                    showProjectsList.append("<li>" +  data[i] + "</li>");
+                   // showProjectsList.append("<li><a href='/project/" + data[i] + "' class='menu-item'><span><img src='/pages/images/project-default.png'></span>" + data[i] + "</a></li>");
+                }
+            });
+        }
+
+
+    </script>
 </head>
 
-<body>
+<body onload="getProjectsList()">
 
     <jsp:include page='navigation.jsp' />
         <h2 style="color: #2e6da4; margin-left: 1%"><spring:message code="dashboard.system.dashboard"/></h2>
@@ -40,6 +55,12 @@
                         <h5 style="margin: 0;"> <spring:message code="dashboard.projects"/></h5>
                     </div>
                     <div class = "panel-body">
+                        <div class="list-group">
+                            <ul class="nav" id="showProjectsList">
+
+                            </ul>
+
+                     </div>
 
                     </div>
                 </div>

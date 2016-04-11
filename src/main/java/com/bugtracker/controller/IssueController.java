@@ -40,17 +40,6 @@ public class IssueController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/projects", method = RequestMethod.GET)
-    public @ResponseBody List<String> getProjects() {
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
-        System.out.println("1");
-        return projectService.getAllNames();
-    }
-
     @RequestMapping(value = "/test/projects")
     public String getProject() {
         return "projects";

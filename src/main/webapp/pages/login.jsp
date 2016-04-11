@@ -22,7 +22,7 @@
 <body>
 
 <jsp:include page='navigation.jsp' />
-    <div class = "container">
+    <div class = "container" style="margin-top: 2%">
     <div class="jumbotron" style="width: 50%; margin: auto">
 
         <h2 class="form-signin-heading" style="margin-top: 0"><spring:message code="log.in.welcome"/></h2>
