@@ -2,6 +2,7 @@ package com.bugtracker.service;
 
 import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.entity.Project;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -10,10 +11,10 @@ import java.util.List;
  */
 public interface ProjectService {
 
-    ProjectDTO addProject(ProjectDTO projectDTO);
+    ProjectDTO addProject(MultipartFile image, ProjectDTO projectDTO);
     void delete(long id);
     ProjectDTO getByName(String name);
-    ProjectDTO editProject(ProjectDTO projectDTO);
+    ProjectDTO editProject(MultipartFile image, String name, ProjectDTO editedProjectDTO);
     List<ProjectDTO> getAll();
     List<String> getAllNames();
 

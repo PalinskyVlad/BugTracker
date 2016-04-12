@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.ProjectRepository;
 import com.bugtracker.service.ProjectService;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,7 +25,14 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectMapper mapper;
 
     @Override
-    public ProjectDTO addProject(ProjectDTO projectDTO) {
+    public ProjectDTO addProject(MultipartFile image, ProjectDTO projectDTO) {
+        try {
+            if (image != null) {
+                projectDTO.setAvatar(image.getBytes());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ProjectDTO savedProject = mapper.projectToProjectDTO(projectRepository.saveAndFlush(mapper.projectDTOToProject(projectDTO)));
 
         return savedProject;
@@ -40,7 +49,21 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO editProject(ProjectDTO projectDTO) {
+    public ProjectDTO editProject(MultipartFile image, String name, ProjectDTO editedProjectDTO) {
+
+        ProjectDTO projectDTO = getByName(name);
+        projectDTO.setName(editedProjectDTO.getName());
+        projectDTO.setDescription(editedProjectDTO.getDescription());
+        projectDTO.setPrivacy(editedProjectDTO.isPrivacy());
+
+        try {
+            if (image.getBytes().length != 0) {
+                projectDTO.setAvatar(image.getBytes());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return mapper.projectToProjectDTO(projectRepository.saveAndFlush(mapper.projectDTOToProject(projectDTO)));
     }
 

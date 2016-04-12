@@ -26,6 +26,8 @@ public class ProjectMapperImpl implements ProjectMapper {
         projectDTO.setId(project.getId());
         projectDTO.setName(project.getName());
         projectDTO.setDescription(project.getDescription());
+        projectDTO.setPrivacy(project.isPrivacy());
+        projectDTO.setAvatar(project.getAvatar());
         projectDTO.setComponents(project.getComponents());
         projectDTO.setVersions(project.getVersions());
         projectDTO.setIssues(project.getIssues());
@@ -44,6 +46,8 @@ public class ProjectMapperImpl implements ProjectMapper {
         project.setId(projectDTO.getId());
         project.setName(projectDTO.getName());
         project.setDescription(projectDTO.getDescription());
+        project.setPrivacy(projectDTO.isPrivacy());
+        project.setAvatar(projectDTO.getAvatar());
         project.setComponents(projectDTO.getComponents());
         project.setVersions(projectDTO.getVersions());
         project.setIssues(projectDTO.getIssues());

@@ -27,11 +27,7 @@ public class IssueController {
 
     @RequestMapping(value = "/createIssue", method = RequestMethod.POST)
     public ModelAndView createIssue(Issue issue, String[] NAME) {
-        System.out.println(issue.getName());
-        System.out.println(issue.getIssueType());
-        System.out.println(issue.getSummary());
-        System.out.println(issue.getPriority());
-        System.out.println(issue.getEnvironment());
+
         if (NAME != null)
         for(int i = 0; i < NAME.length; i++) {
             System.out.println(NAME[i]);

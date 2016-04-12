@@ -22,8 +22,7 @@
             showProjectsList.empty();
             $.get("/projects", function (data) {
                 for (var i in data) {
-                    showProjectsList.append("<li>" +  data[i] + "</li>");
-                   // showProjectsList.append("<li><a href='/project/" + data[i] + "' class='menu-item'><span><img src='/pages/images/project-default.png'></span>" + data[i] + "</a></li>");
+                    showProjectsList.append("<li style='background-color: #eeeeee; margin-top: 1%;'><a href='/project/" + data[i] + "' class='menu-item'><span><img src='/projectImageDisplay?name=" + data[i] + "' width='20' height='20'></span><b style='margin-left: 10px'>" + data[i] + "</b></a></li>");
                 }
             });
         }
@@ -36,7 +35,7 @@
 
     <jsp:include page='navigation.jsp' />
         <h2 style="color: #2e6da4; margin-left: 1%"><spring:message code="dashboard.system.dashboard"/></h2>
-        <div class="row">
+        <div class="row" style="margin-right: 0">
             <div class="col-lg-6" style="margin-left: 2%">
 
                 <div class = "panel panel-primary">
@@ -54,14 +53,12 @@
                     <div class = "panel-heading">
                         <h5 style="margin: 0;"> <spring:message code="dashboard.projects"/></h5>
                     </div>
-                    <div class = "panel-body">
+                    <div class = "panel-body"  style="padding-top: 0;">
                         <div class="list-group">
                             <ul class="nav" id="showProjectsList">
 
                             </ul>
-
                      </div>
-
                     </div>
                 </div>
 

@@ -13,15 +13,19 @@ public class ProjectDTO {
     private long id;
     private String name;
     private String description;
+    private boolean privacy;
+    private byte[] avatar;
     private Set<ProjectComponent> components;
     private Set<ProjectVersion> versions;
     private Set<Issue> issues;
 
-    public ProjectDTO(long id, String name, String description, Set<ProjectComponent> components
-                        , Set<ProjectVersion> versions, Set<Issue> issues) {
+    public ProjectDTO(long id, String name, String description, boolean privacy, byte[] avatar
+                        ,Set<ProjectComponent> components, Set<ProjectVersion> versions, Set<Issue> issues) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.privacy = privacy;
+        this.avatar = avatar;
         this.components = components;
         this.versions = versions;
         this.issues = issues;
@@ -52,6 +56,22 @@ public class ProjectDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(boolean privacy) {
+        this.privacy = privacy;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 
     public Set<ProjectComponent> getComponents() {

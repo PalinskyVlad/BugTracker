@@ -22,6 +22,13 @@ public class Project {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "privacy")
+    private boolean privacy;
+
+    @Lob
+    @Column(name = "avatar", nullable = false, columnDefinition = "mediumblob")
+    private byte[] avatar;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     private Set<ProjectComponent> components;
 
@@ -57,6 +64,22 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(boolean privacy) {
+        this.privacy = privacy;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 
     public Set<ProjectComponent> getComponents() {

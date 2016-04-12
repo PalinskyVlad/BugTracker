@@ -10,15 +10,16 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script type="text/javascript">
-                function getProjects() {
-                    var showProjects = $('#showProjects');
-                    showProjects.empty();
-                    $.get("/projects", function (data) {
-                        for (var i in data) {
-                            showProjects.append("<option>" + data[i] + "</option>");
-                        }
-                    });
+        function getProjects() {
+            var showProjects = $('#showProjects');
+            showProjects.empty();
+            $.get("/projects", function (data) {
+                for (var i in data) {
+                    showProjects.append("<option>" + data[i] + "</option>");
                 }
+            });
+        }
+
 
 
     </script>
@@ -33,7 +34,7 @@
 <body>
 <jsp:include page='createIssueForm.jsp' />
 <jsp:include page='addProjectForm.jsp' />
-<nav class="navbar navbar-default" style="margin-bottom: 0" role="navigation">
+<nav class="navbar bg-primary" role="navigation" style="margin-bottom: 0">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -42,14 +43,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><span><img src="/pages/images/repairer.png" alt = "Brand" width="30" height="30"></span> <b alt="Brand" style="color: #2e6da4;"><spring:message code="brand"/></b></a>
+            <a class="navbar-brand" href="/"><span><img src="/pages/images/repairer.png" alt = "Brand" width="30" height="30"></span> <b alt="Brand" style="color: white;"><spring:message code="brand"/></b></a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <spring:message code="navigation.projects"/> <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle label-primary bg-primary" data-toggle="dropdown" style="color: white;"> <spring:message code="navigation.projects"/> <b class="caret" style="color: white;"></b></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-header"><li class="dropdown-header"><spring:message code="navigation.projects.current.projects" text="default text" /></li></li>
                         <li><a href="#">____</a></li>
@@ -59,14 +60,16 @@
                         <li><a href="#">____</a></li>
                         <li class="divider"></li>
                         <li><a href="#"><spring:message code="navigation.projects.view.all.projects"/></a></li>
+                        <sec:authorize access="isAuthenticated()">
+                            <li class="divider"></li>
+                            <li><a href="#addProject" role="button" data-toggle="modal"><spring:message code="navigation.create.project"/></a></li>
+                        </sec:authorize>
                     </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="navigation.issues"/> <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle label-primary" data-toggle="dropdown" style="color: white;"><spring:message code="navigation.issues"/> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><spring:message code="navigation.issues.search"/></a></li>
-                        <li class="divider"></li>
                         <li class="dropdown-header"><li class="dropdown-header"><spring:message code="navigation.issues.recent.issues"/></li></li>
                         <li><a href="#">___</a></li>
                         <li><a href="#">___</a></li>
@@ -78,21 +81,19 @@
                         <li class="dropdown-header"><spring:message code="navigation.issues.filters"/></li>
                         <li><a href="#"><spring:message code="navigation.issues.my.open.issues"/></a></li>
                         <li><a href="#"><spring:message code="navigation.issues.reported.by.me"/></a></li>
-
+                        <sec:authorize access="isAuthenticated()">
+                            <li class="divider"></li>
+                            <li><a href="#createIssue" onclick="getProjects()" role="button" data-toggle="modal"><spring:message code="navigation.create.issue"/></a></li>
+                        </sec:authorize>
                     </ul>
                 </li>
 
-                <form class ="navbar-form navbar-left" >
-                    <div class = "form-group">
-                <sec:authorize access="isAuthenticated()">
-                    <ul class = "nav nav-tabs">
-                    <il><a class="btn btn-sm btn-primary" href="#addProject" role="button" data-toggle="modal"><spring:message code="navigation.add.project"/></a></il>
-                     <il><a class="btn btn-sm btn-primary" href="#createIssue" onclick="getProjects()" role="button" data-toggle="modal"><spring:message code="navigation.create.issue"/></a></il>
-                    </ul>
-                </sec:authorize>
-                    </div>
-                </form>
             </ul>
+
+
+
+
+
             <div class = "nav navbar-btn navbar-right" >
 
                 <div class="dropdown navbar-left" style="margin-right: 10px">

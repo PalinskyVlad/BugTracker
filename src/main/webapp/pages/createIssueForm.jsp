@@ -10,19 +10,18 @@
     <link href="<c:url value="/pages/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/pages/css/dropdowns-enhancement.css" />" rel="stylesheet">
     <script src="/pages/js/dropdowns-enhancement.js"></script>
-    <script src="/pages/js/bootstrap.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 
 </head>
 <body>
 
-<form class="form-horizontal" action = "/createIssue" method = "post" commandName = "issue">
-    <div class="modal fate" id="createIssue" tabindex="-1" role="dialog" aria-labelledby="createIssueLabel" aria-hidden="true">
+<div class="modal fate" id="createIssue" role="dialog">
+    <form class="form-horizontal" action = "/createIssue" method = "post" commandName = "issue">
+
         <div class="modal-header">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -132,8 +131,8 @@
 
 
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type = "submit"><spring:message code ="create.issue.save.changes"/></button>
-                        <button class="btn" data-dismiss="modal" aria-hidden="true"><spring:message code ="create.issue.close"/></button>
+                        <button class="btn btn-primary" type = "submit"><spring:message code ="create.issue.save.issue"/></button>
+                        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><spring:message code ="create.issue.close"/></button>
                     </div>
 
 
@@ -141,8 +140,9 @@
             </div>
         </div>
     </div>
+        </form>
+
     </div>
-</form>
 
 </body>
 </html>

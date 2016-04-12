@@ -17,8 +17,11 @@ public class ProjectVersion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name", length = 32, nullable = false)
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne(fetch =  FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "project_id", nullable = false)
@@ -48,6 +51,14 @@ public class ProjectVersion {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Project getProject() {

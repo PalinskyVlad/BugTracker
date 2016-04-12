@@ -29,7 +29,7 @@
         <h3>Summary</h3>
     </div>
 
-    <div class="row" style="margin-left: 1%">
+    <div class="row" style="margin-right: 0">
         <div class="col-lg-6">
 
             <form class="form-horizontal">

@@ -23,12 +23,12 @@ public class User implements Serializable {
     private long id;
 
     @NotEmpty
-    @Column(name = "username", length = 32, nullable = false, unique = true)
+    @Column(name = "username", length = 64, nullable = false, unique = true)
     private String username;
 
     @Email
     @NotEmpty
-    @Column(name = "email", length = 32, nullable = false, unique = true)
+    @Column(name = "email", length = 64, nullable = false, unique = true)
     private String email;
 
     @NotEmpty
@@ -36,11 +36,11 @@ public class User implements Serializable {
     private String password;
 
     @NotEmpty
-    @Column(name = "first_name", length = 32, nullable = false)
+    @Column(name = "first_name", length = 64, nullable = false)
     private String firstName;
 
     @NotEmpty
-    @Column(name = "last_name", length = 32, nullable = false)
+    @Column(name = "last_name", length = 64, nullable = false)
     private String lastName;
 
     @Column(name = "role")
