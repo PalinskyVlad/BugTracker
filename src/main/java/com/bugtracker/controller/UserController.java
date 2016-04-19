@@ -26,6 +26,4 @@ public class UserController {
         modelAndView.setViewName("profile");
         return modelAndView;
     }
-
-
 }

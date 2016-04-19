@@ -15,7 +15,6 @@ public interface UserService {
     UserDTO getByUsername(String username);
     UserDTO getByEmail(String email);
     UserDTO editUser(UserDTO userDTO);
-    List<UserDTO> getAll();
     boolean confirmSecretCode(String secretCode);
     boolean checkEmail(String email);
     boolean checkUsername(String username);

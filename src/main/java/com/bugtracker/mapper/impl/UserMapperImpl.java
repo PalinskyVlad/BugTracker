@@ -2,11 +2,18 @@ package com.bugtracker.mapper.impl;
 
 import com.bugtracker.dto.UserDTO;
 import com.bugtracker.entity.User;
+import com.bugtracker.mapper.IssueMapper;
 import com.bugtracker.mapper.UserMapper;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Vlados on 4/4/2016.
@@ -14,58 +21,34 @@ import java.util.List;
 @Component
 public class UserMapperImpl implements UserMapper {
 
+    private final static MapperFacade mapper;
+
+    static
+    {
+        final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(User.class, UserDTO.class)
+                .byDefault()
+                .register();
+        mapper = mapperFactory.getMapperFacade();
+    }
+
     @Override
     public UserDTO userToUserDTO(User user) {
-
-        if (user == null) {
-            return null;
-        }
-
-        UserDTO userDTO = new UserDTO();
-
-        userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setRole(user.getRole());
-        userDTO.setSecretCode(user.getSecretCode());
-        userDTO.setConfirmed(user.isConfirmed());
-        userDTO.setIssues(user.getIssues());
-
-        return userDTO;
+        return mapper.map(user, UserDTO.class);
     }
 
     @Override
     public User userDTOToUser(UserDTO userDTO) {
-        if (userDTO == null) {
-            return null;
-        }
-
-        User user = new User();
-
-        user.setId(userDTO.getId());
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setRole(userDTO.getRole());
-        user.setSecretCode(userDTO.getSecretCode());
-        user.setConfirmed(userDTO.isConfirmed());
-        user.setIssues(userDTO.getIssues());
-
-        return user;
+        return mapper.map(userDTO, User.class);
     }
 
     @Override
-    public List<UserDTO> usersToUserDTOs(List<User> users) {
+    public Set<UserDTO> usersToUserDTOs(Set<User> users) {
         if (users == null) {
             return null;
         }
 
-        List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+        Set<UserDTO> userDTOs = new HashSet<UserDTO>();
 
         for (User user : users) {
             userDTOs.add(userToUserDTO(user));
@@ -75,12 +58,12 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public List<User> userDTOsToUsers(List<UserDTO> userDTOs) {
+    public Set<User> userDTOsToUsers(Set<UserDTO> userDTOs) {
         if (userDTOs == null) {
             return null;
         }
 
-        List<User> users = new ArrayList<User>();
+        Set<User> users = new HashSet<User>();
 
         for (UserDTO userDTO : userDTOs) {
             users.add(userDTOToUser(userDTO));

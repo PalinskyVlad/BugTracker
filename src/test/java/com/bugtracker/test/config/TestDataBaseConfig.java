@@ -13,15 +13,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by Vlados on 15.03.2016.
 
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("com.bugtracker")
-
- */
-
 public class TestDataBaseConfig {
 
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "com.mysql.jdbc.Driver";

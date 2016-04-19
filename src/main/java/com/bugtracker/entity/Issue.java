@@ -6,6 +6,7 @@ import com.bugtracker.entity.enums.IssueTypeEnum;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,76 +16,43 @@ import java.util.Set;
 @Table(name = "issue")
 public class Issue {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name", length = 64, nullable = false, unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
-    @Column(name = "issue_type", nullable = false)
-    @Enumerated(EnumType.STRING)
     private IssueTypeEnum issueType;
 
-    @Column(name = "summary")
     private String summary;
 
-    @Column(name = "priority", nullable = false)
-    @Enumerated(EnumType.STRING)
     private IssuePriorityEnum priority;
 
-    @ManyToMany
-    @JoinTable(name = "issue_project_component",
-            joinColumns = @JoinColumn(name = "issue_id", referencedColumnName = "id"),
-            inverseJoinColumns =  @JoinColumn(name = "project_component_id", referencedColumnName = "id")
-    )
-    private Set<ProjectComponent> components;
+    private Set<ProjectComponent> components = new HashSet<ProjectComponent>();
 
 
-    @ManyToMany
-    @JoinTable(name = "issue_project_version",
-            joinColumns = @JoinColumn(name = "issue_id", referencedColumnName = "id"),
-            inverseJoinColumns =  @JoinColumn(name = "project_version_id", referencedColumnName = "id")
-    )
-    private Set<ProjectVersion> affectsVersions;
+    private Set<ProjectVersion> versions = new HashSet<ProjectVersion>();
 
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
     private IssueStatusEnum status;
 
-    @Column(name = "environment")
     private String environment;
 
-    @Column(name = "description")
     private String description;
 
-    @ManyToMany
-    @JoinTable(name = "issue_user",
-            joinColumns = @JoinColumn(name = "issue_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
-    )
     private Set<User> users;
 
-    @Column(name = "created_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @Column(name = "updated_date")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @Column(name = "resolved_date")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date resolvedDate;
 
     public Issue() {
 
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }
@@ -93,6 +61,7 @@ public class Issue {
         this.id = id;
     }
 
+    @Column(name = "name", length = 64, nullable = false, unique = true)
     public String getName() {
         return name;
     }
@@ -101,6 +70,8 @@ public class Issue {
         this.name = name;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "project_id", nullable = false)
     public Project getProject() {
         return project;
     }
@@ -109,6 +80,8 @@ public class Issue {
         this.project = project;
     }
 
+    @Column(name = "issue_type", nullable = false)
+    @Enumerated(EnumType.STRING)
     public IssueTypeEnum getIssueType() {
         return issueType;
     }
@@ -117,6 +90,7 @@ public class Issue {
         this.issueType = issueType;
     }
 
+    @Column(name = "summary")
     public String getSummary() {
         return summary;
     }
@@ -125,6 +99,8 @@ public class Issue {
         this.summary = summary;
     }
 
+    @Column(name = "priority", nullable = false)
+    @Enumerated(EnumType.STRING)
     public IssuePriorityEnum getPriority() {
         return priority;
     }
@@ -133,6 +109,11 @@ public class Issue {
         this.priority = priority;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "issue_project_component",
+            joinColumns = @JoinColumn(name = "issue_id", referencedColumnName = "id"),
+            inverseJoinColumns =  @JoinColumn(name = "project_component_id", referencedColumnName = "id")
+    )
     public Set<ProjectComponent> getComponents() {
         return components;
     }
@@ -141,14 +122,21 @@ public class Issue {
         this.components = components;
     }
 
-    public Set<ProjectVersion> getAffectsVersions() {
-        return affectsVersions;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "issue_project_version",
+            joinColumns = @JoinColumn(name = "issue_id", referencedColumnName = "id"),
+            inverseJoinColumns =  @JoinColumn(name = "project_version_id", referencedColumnName = "id")
+    )
+    public Set<ProjectVersion> getVersions() {
+        return versions;
     }
 
-    public void setAffectsVersions(Set<ProjectVersion> affectsVersions) {
-        this.affectsVersions = affectsVersions;
+    public void setVersions(Set<ProjectVersion> versions) {
+        this.versions = versions;
     }
 
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
     public IssueStatusEnum getStatus() {
         return status;
     }
@@ -157,6 +145,7 @@ public class Issue {
         this.status = status;
     }
 
+    @Column(name = "environment")
     public String getEnvironment() {
         return environment;
     }
@@ -165,6 +154,7 @@ public class Issue {
         this.environment = environment;
     }
 
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -173,6 +163,11 @@ public class Issue {
         this.description = description;
     }
 
+    @ManyToMany
+    @JoinTable(name = "issue_user",
+            joinColumns = @JoinColumn(name = "issue_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
     public Set<User> getUsers() {
         return users;
     }
@@ -181,6 +176,8 @@ public class Issue {
         this.users = users;
     }
 
+    @Column(name = "created_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -189,6 +186,8 @@ public class Issue {
         this.createdDate = createdDate;
     }
 
+    @Column(name = "updated_date")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getUpdatedDate() {
         return updatedDate;
     }
@@ -197,6 +196,8 @@ public class Issue {
         this.updatedDate = updatedDate;
     }
 
+    @Column(name = "resolved_date")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getResolvedDate() {
         return resolvedDate;
     }

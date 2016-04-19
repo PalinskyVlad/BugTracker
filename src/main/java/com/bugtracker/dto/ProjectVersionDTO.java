@@ -3,6 +3,7 @@ package com.bugtracker.dto;
 import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.Project;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,16 +12,17 @@ import java.util.Set;
 public class ProjectVersionDTO {
     private long id;
     private String name;
-    private Project project;
+    private String description;
+    private ProjectDTO projectDTO;
     private boolean release;
-    private Set<Issue> issues;
+    private Set<IssueDTO> issueDTOs = new HashSet<IssueDTO>();
 
-    public ProjectVersionDTO(long id, String name, Project project, Boolean release, Set<Issue> issues) {
+    public ProjectVersionDTO(long id, String name, ProjectDTO projectDTO, Boolean release, Set<IssueDTO> issueDTOs) {
         this.id = id;
         this.name = name;
-        this.project = project;
+        this.projectDTO = projectDTO;
         this.release = release;
-        this.issues = issues;
+        this.issueDTOs = issueDTOs;
     }
 
     public ProjectVersionDTO() {
@@ -42,12 +44,24 @@ public class ProjectVersionDTO {
         this.name = name;
     }
 
-    public Project getProject() {
-        return project;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setRelease(boolean release) {
+        this.release = release;
+    }
+
+    public ProjectDTO getProjectDTO() {
+        return projectDTO;
+    }
+
+    public void setProjectDTO(ProjectDTO projectDTO) {
+        this.projectDTO = projectDTO;
     }
 
     public Boolean isRelease() {
@@ -58,11 +72,11 @@ public class ProjectVersionDTO {
         this.release = release;
     }
 
-    public Set<Issue> getIssues() {
-        return issues;
+    public Set<IssueDTO> getIssueDTOs() {
+        return issueDTOs;
     }
 
-    public void setIssues(Set<Issue> issues) {
-        this.issues = issues;
+    public void setIssueDTOs(Set<IssueDTO> issueDTOs) {
+        this.issueDTOs = issueDTOs;
     }
 }

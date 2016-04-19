@@ -11,7 +11,7 @@
 <body>
 
         <div class="modal fade" id="createProjectComponent" role="dialog">
-        <form class="form-horizontal" action="/createProjectComponent/${project.id}" method="post" commandName = "projectComponent">
+        <form class="form-horizontal" action="/${project.name}/createProjectComponent" method="post" commandName = "projectComponent">
             <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -32,7 +32,7 @@
                     <div class="form-group" style="height: 100px">
                         <label class="col-lg-3 control-label"><spring:message code ="project.create.project.component.description"/></label>
                         <div class="col-lg-8">
-                            <textarea name="environment" class="form-control" style="height: 100px"></textarea>
+                            <textarea name="description" class="form-control" style="height: 100px"></textarea>
                         </div>
                     </div>
 

@@ -12,4 +12,7 @@ public interface ProjectComponentRepository extends JpaRepository<ProjectCompone
 
     @Query("select p from ProjectComponent p where p.name =:name")
     ProjectComponent getByName(@Param("name") String name);
+
+    @Query("select p from ProjectComponent p where p.id =:id")
+    ProjectComponent getById(@Param("id") long id);
 }

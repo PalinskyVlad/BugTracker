@@ -4,6 +4,7 @@ import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.ProjectComponent;
 import com.bugtracker.entity.ProjectVersion;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,20 +16,20 @@ public class ProjectDTO {
     private String description;
     private boolean privacy;
     private byte[] avatar;
-    private Set<ProjectComponent> components;
-    private Set<ProjectVersion> versions;
-    private Set<Issue> issues;
+    private Set<ProjectComponentDTO> componentDTOs = new HashSet<ProjectComponentDTO>();
+    private Set<ProjectVersionDTO> versionDTOs = new HashSet<ProjectVersionDTO>();
+    private Set<IssueDTO> issueDTOs = new HashSet<IssueDTO>();
 
     public ProjectDTO(long id, String name, String description, boolean privacy, byte[] avatar
-                        ,Set<ProjectComponent> components, Set<ProjectVersion> versions, Set<Issue> issues) {
+                        ,Set<ProjectComponentDTO> componentDTOs, Set<ProjectVersionDTO> versionDTOs, Set<IssueDTO> issueDTOs) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.privacy = privacy;
         this.avatar = avatar;
-        this.components = components;
-        this.versions = versions;
-        this.issues = issues;
+        this.componentDTOs = componentDTOs;
+        this.versionDTOs = versionDTOs;
+        this.issueDTOs = issueDTOs;
     }
 
     public ProjectDTO() {
@@ -74,27 +75,27 @@ public class ProjectDTO {
         this.avatar = avatar;
     }
 
-    public Set<ProjectComponent> getComponents() {
-        return components;
+    public Set<ProjectComponentDTO> getComponentDTOs() {
+        return componentDTOs;
     }
 
-    public void setComponents(Set<ProjectComponent> components) {
-        this.components = components;
+    public void setComponentDTOs(Set<ProjectComponentDTO> componentDTOs) {
+        this.componentDTOs = componentDTOs;
     }
 
-    public Set<ProjectVersion> getVersions() {
-        return versions;
+    public Set<ProjectVersionDTO> getVersionDTOs() {
+        return versionDTOs;
     }
 
-    public void setVersions(Set<ProjectVersion> versions) {
-        this.versions = versions;
+    public void setVersionDTOs(Set<ProjectVersionDTO> versionDTOs) {
+        this.versionDTOs = versionDTOs;
     }
 
-    public Set<Issue> getIssues() {
-        return issues;
+    public Set<IssueDTO> getIssueDTOs() {
+        return issueDTOs;
     }
 
-    public void setIssues(Set<Issue> issues) {
-        this.issues = issues;
+    public void setIssueDTOs(Set<IssueDTO> issueDTOs) {
+        this.issueDTOs = issueDTOs;
     }
 }

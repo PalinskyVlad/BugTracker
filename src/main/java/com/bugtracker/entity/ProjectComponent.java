@@ -1,6 +1,7 @@
 package com.bugtracker.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,27 +11,23 @@ import java.util.Set;
 @Table(name = "project_component")
 public class ProjectComponent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch =  FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "components")
-    private Set<Issue> issues;
+    private Set<Issue> issues = new HashSet<Issue>();
 
     public ProjectComponent() {
 
     }
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }
@@ -39,6 +36,7 @@ public class ProjectComponent {
         this.id = id;
     }
 
+    @Column(name = "name", length = 64, nullable = false)
     public String getName() {
         return name;
     }
@@ -47,6 +45,7 @@ public class ProjectComponent {
         this.name = name;
     }
 
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -55,6 +54,8 @@ public class ProjectComponent {
         this.description = description;
     }
 
+    @ManyToOne(fetch =  FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "project_id")
     public Project getProject() {
         return project;
     }
@@ -63,6 +64,7 @@ public class ProjectComponent {
         this.project = project;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "components")
     public Set<Issue> getIssues() {
         return issues;
     }

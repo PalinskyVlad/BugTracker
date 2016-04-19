@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlados
@@ -44,18 +45,18 @@
                 <strong style="color: #707070; margin-left: 15px"> <spring:message code="project.navigation"/></strong>
             </li>
             <li>
-                <a href="#" class="menu-item">
-                    <span class="glyphicon glyphicon-info-sign" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.issues"/><span class="badge" style="margin-left: 5%">0</span>
+                <a href="/${project.name}/issues" class="menu-item">
+                    <span class="glyphicon glyphicon-info-sign" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.issues"/></span>
                 </a>
             </li>
             <li>
-                <a href="#" class="menu-item">
-                    <span class="glyphicon glyphicon-sort" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.versions"/><span class="badge" style="margin-left: 5%">0</span>
+                <a href="/${project.name}/projectVersions" class="menu-item">
+                    <span class="glyphicon glyphicon-sort" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.versions"/></span>
                 </a>
             </li>
             <li>
-                <a href="#" class="menu-item">
-                    <span class="glyphicon glyphicon-book" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.components"/><span class="badge" style="margin-left: 5%">0</span>
+                <a href="/${project.name}/projectComponents" class="menu-item">
+                    <span class="glyphicon glyphicon-book" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.components"/></span>
                 </a>
             </li>
             <hr style="width: 95%">

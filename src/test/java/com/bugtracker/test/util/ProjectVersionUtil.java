@@ -11,7 +11,6 @@ public class ProjectVersionUtil {
     public static ProjectVersion createProjectVersion() {
         ProjectVersion projectVersion = new ProjectVersion();
         projectVersion.setName("versionone");
-        projectVersion.setRelease(true);
         projectVersion.setProject(new Project());
         return projectVersion;
     }

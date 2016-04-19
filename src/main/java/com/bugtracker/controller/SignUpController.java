@@ -37,13 +37,10 @@ public class SignUpController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView addUser(@Valid UserDTO userDTO , BindingResult result,
                                 @RequestParam("g-recaptcha-response") String recaptcha) throws IOException {
-
         ModelAndView modelAndView = new ModelAndView("signUpForm");
-
         if (result.hasErrors()) {
             return modelAndView;
         }
-
         if (userService.checkEmail(userDTO.getEmail())) {
             modelAndView.addObject("emailError", "User with the e-mail " + userDTO.getEmail() + " is already registered");
             return  modelAndView;
@@ -57,12 +54,9 @@ public class SignUpController {
             modelAndView.addObject("captchaError", "Please verify captcha so we know that it's not robot!");
             return modelAndView;
         }
-
         mailService.sendRegistrationMail(userDTO);
         userService.addUser(userDTO);
-
         modelAndView.setViewName("signUpSuccess");
-
         return modelAndView;
     }
 

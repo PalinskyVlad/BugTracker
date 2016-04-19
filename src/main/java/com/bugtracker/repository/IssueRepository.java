@@ -12,4 +12,7 @@ public interface IssueRepository  extends JpaRepository<Issue, Long> {
 
     @Query("select i from Issue i where i.name =:name")
     Issue getByName(@Param("name") String name);
+
+    @Query("select i from Issue i where i.id =:id")
+    Issue getById(@Param("id") long id);
 }

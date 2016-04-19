@@ -1,7 +1,10 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.ProjectComponentDTO;
 import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.entity.Project;
+import com.bugtracker.entity.ProjectComponent;
+import com.bugtracker.entity.ProjectVersion;
 import com.bugtracker.mapper.ProjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +13,7 @@ import com.bugtracker.service.ProjectService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Vlados on 15.03.2016.
@@ -38,12 +41,14 @@ public class ProjectServiceImpl implements ProjectService {
         return savedProject;
     }
 
+
     @Override
     public void delete(long id) {
         projectRepository.delete(id);
     }
 
     @Override
+
     public ProjectDTO getByName(String name) {
         return mapper.projectToProjectDTO(projectRepository.findByName(name));
     }
@@ -73,7 +78,23 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDTO> getAll() {
-        return mapper.projectsToProjectDTOs(projectRepository.findAll());
+    public Map<Long, String> getAllComponentsNameAndId(String projectName) {
+        Map<Long, String> componentNames = new HashMap<Long, String>();
+        Set<ProjectComponent> components = projectRepository.findByName(projectName).getComponents();
+        for(ProjectComponent projectComponent : components) {
+            componentNames.put(projectComponent.getId(), projectComponent.getName());
+        }
+        return componentNames;
     }
+
+    @Override
+    public Map<Long, String> getAllVersionsNameAndId(String projectName) {
+        Map<Long, String>  versionNames = new HashMap<Long, String>();
+        Set<ProjectVersion> versions = projectRepository.findByName(projectName).getVersions();
+        for(ProjectVersion projectVersion : versions) {
+            versionNames.put(projectVersion.getId(), projectVersion.getName());
+        }
+        return versionNames;
+    }
+
 }

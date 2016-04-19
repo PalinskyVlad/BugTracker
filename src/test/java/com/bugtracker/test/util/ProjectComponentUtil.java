@@ -10,6 +10,8 @@ public class ProjectComponentUtil {
     public static ProjectComponent createProjectComponent() {
         ProjectComponent projectComponent = new ProjectComponent();
         projectComponent.setName("core");
+        projectComponent.setDescription("dfsdfsdf");
+
 
         return projectComponent;
     }

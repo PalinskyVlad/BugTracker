@@ -12,4 +12,7 @@ public interface ProjectVersionRepository extends JpaRepository<ProjectVersion, 
 
     @Query("select p from ProjectVersion p where p.name =:name")
     ProjectVersion getByName(@Param("name") String name);
+
+    @Query("select p from ProjectVersion p where p.id =:id")
+    ProjectVersion getById(@Param("id") long id);
 }

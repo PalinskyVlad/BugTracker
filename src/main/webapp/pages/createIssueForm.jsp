@@ -13,8 +13,41 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
+    <script type="text/javascript">
+        function showComponentsAndVersions(projectName) {
+            var showComponents = $('#showComponents');
+            showComponents.empty();
+            var showVersions = $('#showVersions');
+            showVersions.empty();
 
-</head>
+            $.ajax({
+             type: "POST",
+             url: "/showComponents",
+             data: {"projectName": projectName},
+             dataType: "json",
+                success: function(data) {
+                    for (var i in data) {
+                        showComponents.append("<li><input type='checkbox' id='" + i + "' name='components' value='" + i + "'><label for='" + i + "'>" + data[i] + "</label>");
+                    }
+                    }
+            })
+
+            $.ajax({
+                type: "POST",
+                url: "/showVersions",
+                data: {"projectName": projectName},
+                dataType: "json",
+                success: function(data) {
+                    for (var i in data) {
+                        showVersions.append("<li><input type='checkbox' id='" + i + "' name='versions' value='" + i + "'><label for='" + i + "'>" + data[i] + "</label>");
+                    }
+                }
+            })
+        }
+    </script>
+
+
+        </head>
 <body>
 
 <div class="modal fate" id="createIssue" role="dialog">
@@ -39,9 +72,7 @@
                         <div class = "form-group">
                             <label class="col-lg-3 control-label"><spring:message code ="create.issue.project"/></label>
                             <div class="col-lg-6">
-                            <select class="form-control" id="showProjects" name = "projectName" style="width: auto;margin-top: 2%">
-                                <option>1Test1</option>
-                                <option>2Test2</option>
+                            <select class="form-control" id="showProjects" name = "projectName" style="width: auto;margin-top: 2%" onchange="showComponentsAndVersions(this.value)">
                             </select>
                             </div>
                         </div>
@@ -95,10 +126,7 @@
                             <label class="col-lg-3 control-label"><spring:message code ="create.issue.component.s"/></label>
                             <div class="col-lg-6">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"  data-placeholder="Please select"><spring:message code ="create.issue.component.s.please.select"/> <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><input type="checkbox" id="ID" name="NAME" value="Core"><label for="ID">Core</label></li>
-                                    <li><input type="checkbox" id="ID2" name="NAME" value="Documentation"><label for="ID2">Documentation</label></li>
-                                    <li><input type="checkbox" id="ID3" name="NAME" value="Infrastructure"><label for="ID3">Infrastructure</label></li>
+                                <ul class="dropdown-menu" id="showComponents">
                                 </ul>
                             </div>
                         </div>
@@ -107,10 +135,7 @@
                             <label class="col-lg-3 control-label"><spring:message code ="create.issue.affects.version.s"/></label>
                             <div class="col-lg-6">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"  data-placeholder="Please select"><spring:message code ="create.issue.affects.please.select"/> <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><input type="checkbox" id="ID4" name="NAME" value="Core"><label for="ID">1.0.0</label></li>
-                                    <li><input type="checkbox" id="ID5" name="NAME" value="Documentation"><label for="ID2">1.0.1</label></li>
-                                    <li><input type="checkbox" id="ID6" name="NAME" value="Infrastructure"><label for="ID3">1.0.2</label></li>
+                                <ul class="dropdown-menu" id="showVersions">
                                 </ul>
                             </div>
                         </div>
@@ -125,7 +150,7 @@
                         <div class="form-group" style="height: 100px">
                             <label class="col-lg-3 control-label"><spring:message code ="create.issue.description"/></label>
                             <div class="col-lg-8">
-                                <textarea name="environment" class="form-control" style="height: 100px"></textarea>
+                                <textarea name="description" class="form-control" style="height: 100px"></textarea>
                             </div>
                         </div>
 

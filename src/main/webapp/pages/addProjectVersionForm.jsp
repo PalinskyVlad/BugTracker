@@ -11,7 +11,7 @@
 <body>
 
 <div class="modal fade" id="addProjectVersion" role="dialog">
-    <form class="form-horizontal" action="/addProjectVersion/${project.id}" method="post">
+    <form class="form-horizontal" action="/${project.name}/addProjectVersion" method="post">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -32,7 +32,7 @@
                     <div class="form-group" style="height: 100px">
                         <label class="col-lg-3 control-label"><spring:message code ="project.add.project.version.description"/></label>
                         <div class="col-lg-8">
-                            <textarea name="environment" class="form-control" style="height: 100px"></textarea>
+                            <textarea name="description" class="form-control" style="height: 100px"></textarea>
                         </div>
                     </div>
 

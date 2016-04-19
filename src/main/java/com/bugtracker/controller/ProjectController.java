@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Vlados on 3/30/2016.
@@ -31,11 +32,10 @@ public class ProjectController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        projectService.addProject(image, projectDTO);
+        ProjectDTO savedProjectDTO= projectService.addProject(image, projectDTO);
         ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("dashboard");
-
+        modelAndView.setViewName("project");
+        modelAndView.addObject("project", savedProjectDTO);
         return modelAndView;
     }
 
@@ -53,6 +53,18 @@ public class ProjectController {
         modelAndView.setViewName("projectSettings");
         modelAndView.addObject("project", projectService.getByName(name));
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/showComponents", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<Long, String> showComponents(String projectName) {
+        return projectService.getAllComponentsNameAndId(projectName);
+    }
+
+    @RequestMapping(value = "/showVersions", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<Long, String> showVersions(String projectName) {
+        return projectService.getAllVersionsNameAndId(projectName);
     }
 
     @RequestMapping(value = "/editProject/{name}", method = RequestMethod.POST)
@@ -73,8 +85,6 @@ public class ProjectController {
         return "dashboard";
     }
 
-
-
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
     public @ResponseBody
     List<String> getProjects() {
@@ -82,11 +92,11 @@ public class ProjectController {
     }
 
 
-        @RequestMapping(value = "/projectImageDisplay", method = RequestMethod.GET)
-        public void showImage(@RequestParam("name") String name, HttpServletResponse response, HttpServletRequest request)
-                throws ServletException, IOException {
-            response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-            response.getOutputStream().write(projectService.getByName(name).getAvatar());
-            response.getOutputStream().close();
-        }
+    @RequestMapping(value = "/projectImageDisplay", method = RequestMethod.GET)
+    public void showImage(@RequestParam("name") String name, HttpServletResponse response, HttpServletRequest request)
+            throws ServletException, IOException {
+        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+        response.getOutputStream().write(projectService.getByName(name).getAvatar());
+        response.getOutputStream().close();
+    }
 }

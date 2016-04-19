@@ -9,6 +9,7 @@ import com.bugtracker.entity.enums.IssueStatusEnum;
 import com.bugtracker.entity.enums.IssueTypeEnum;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,36 +19,36 @@ import java.util.Set;
 public class IssueDTO {
     private long id;
     private String name;
-    private Project project;
+    private ProjectDTO projectDTO;
     private IssueTypeEnum issueType;
     private String summary;
     private IssuePriorityEnum priority;
-    private Set<ProjectComponent> components;
-    private Set<ProjectVersion> affectsVersions;
+    private Set<ProjectComponentDTO> componentDTOs = new HashSet<ProjectComponentDTO>();
+    private Set<ProjectVersionDTO> versionDTOs = new HashSet<ProjectVersionDTO>();
     private IssueStatusEnum status;
     private String environment;
     private String description;
-    private Set<User> users;
+    private Set<UserDTO> userDTOs = new HashSet<UserDTO>();
     private Date createdDate;
     private Date updatedDate;
     private Date resolvedDate;
 
-    public IssueDTO(long id, String name, Project project, IssueTypeEnum issueType, String summary
-                    , IssuePriorityEnum priority, Set<ProjectComponent> components, Set<ProjectVersion> affectsVersions
-                    , IssueStatusEnum status, String environment, String description, Set<User> users, Date createdDate
+    public IssueDTO(long id, String name, ProjectDTO projectDTO, IssueTypeEnum issueType, String summary
+                    , IssuePriorityEnum priority, Set<ProjectComponentDTO> componentDTOs, Set<ProjectVersionDTO> versionDTOs
+                    , IssueStatusEnum status, String environment, String description, Set<UserDTO> userDTOs, Date createdDate
                     , Date updatedDate, Date resolvedDate) {
         this.id = id;
         this.name = name;
-        this.project = project;
+        this.projectDTO = projectDTO;
         this.issueType = issueType;
         this.summary = summary;
         this.priority = priority;
-        this.components = components;
-        this.affectsVersions = affectsVersions;
+        this.componentDTOs = componentDTOs;
+        this.versionDTOs = versionDTOs;
         this.status = status;
         this.environment = environment;
         this.description = description;
-        this.users = users;
+        this.userDTOs = userDTOs;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.resolvedDate = resolvedDate;
@@ -73,12 +74,12 @@ public class IssueDTO {
         this.name = name;
     }
 
-    public Project getProject() {
-        return project;
+    public ProjectDTO getProjectDTO() {
+        return projectDTO;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjectDTO(ProjectDTO projectDTO) {
+        this.projectDTO = projectDTO;
     }
 
     public IssueTypeEnum getIssueType() {
@@ -105,20 +106,20 @@ public class IssueDTO {
         this.priority = priority;
     }
 
-    public Set<ProjectComponent> getComponents() {
-        return components;
+    public Set<ProjectComponentDTO> getComponentDTOs() {
+        return componentDTOs;
     }
 
-    public void setComponents(Set<ProjectComponent> components) {
-        this.components = components;
+    public void setComponentDTOs(Set<ProjectComponentDTO> componentDTOs) {
+        this.componentDTOs = componentDTOs;
     }
 
-    public Set<ProjectVersion> getAffectsVersions() {
-        return affectsVersions;
+    public Set<ProjectVersionDTO> getVersionDTOs() {
+        return versionDTOs;
     }
 
-    public void setAffectsVersions(Set<ProjectVersion> affectsVersions) {
-        this.affectsVersions = affectsVersions;
+    public void setVersionDTOs(Set<ProjectVersionDTO> versionDTOs) {
+        this.versionDTOs = versionDTOs;
     }
 
     public IssueStatusEnum getStatus() {
@@ -145,12 +146,12 @@ public class IssueDTO {
         this.description = description;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<UserDTO> getUserDTOs() {
+        return userDTOs;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUserDTOs(Set<UserDTO> userDTOs) {
+        this.userDTOs = userDTOs;
     }
 
     public Date getCreatedDate() {

@@ -3,6 +3,7 @@ package com.bugtracker.dto;
 import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.enums.UserRoleEnum;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,10 +19,10 @@ public class UserDTO {
     private UserRoleEnum role;
     private String secretCode;
     private boolean confirmed;
-    private Set<Issue> issues;
+    private Set<IssueDTO> issueDTOs = new HashSet<IssueDTO>();
 
     public UserDTO(long id, String username, String email, String password, String firstName, String lastName
-                                , UserRoleEnum role, String secretCode, boolean confirmed, Set<Issue> issues) {
+                                , UserRoleEnum role, String secretCode, boolean confirmed, Set<IssueDTO> issueDTOs) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -31,7 +32,7 @@ public class UserDTO {
         this.role = role;
         this.secretCode = secretCode;
         this.confirmed = confirmed;
-        this.issues = issues;
+        this.issueDTOs = issueDTOs;
     }
 
     public UserDTO() {
@@ -110,11 +111,11 @@ public class UserDTO {
         this.confirmed = confirmed;
     }
 
-    public Set<Issue> getIssues() {
-        return issues;
+    public Set<IssueDTO> getIssueDTOs() {
+        return issueDTOs;
     }
 
-    public void setIssues(Set<Issue> issues) {
-        this.issues = issues;
+    public void setIssueDTOs(Set<IssueDTO> issueDTOs) {
+        this.issueDTOs = issueDTOs;
     }
 }

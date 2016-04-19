@@ -3,6 +3,7 @@ package com.bugtracker.dto;
 import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.Project;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,14 +12,15 @@ import java.util.Set;
 public class ProjectComponentDTO {
     private long id;
     private String name;
-    private Project project;
-    private Set<Issue> issues;
+    private String description;
+    private ProjectDTO projectDTO;
+    private Set<IssueDTO> issueDTOs = new HashSet<IssueDTO>();
 
-    public ProjectComponentDTO(long id, String name, Project project, Set<Issue> issues) {
+    public ProjectComponentDTO(long id, String name, ProjectDTO projectDTO, Set<IssueDTO> issueDTOs) {
         this.id = id;
         this.name = name;
-        this.project = project;
-        this.issues = issues;
+        this.projectDTO = projectDTO;
+        this.issueDTOs = issueDTOs;
     }
 
     public ProjectComponentDTO() {
@@ -40,19 +42,27 @@ public class ProjectComponentDTO {
         this.name = name;
     }
 
-    public Project getProject() {
-        return project;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Set<Issue> getIssues() {
-        return issues;
+    public ProjectDTO getProjectDTO() {
+        return projectDTO;
     }
 
-    public void setIssues(Set<Issue> issues) {
-        this.issues = issues;
+    public void setProjectDTO(ProjectDTO projectDTO) {
+        this.projectDTO = projectDTO;
+    }
+
+    public Set<IssueDTO> getIssueDTOs() {
+        return issueDTOs;
+    }
+
+    public void setIssueDTOs(Set<IssueDTO> issueDTOs) {
+        this.issueDTOs = issueDTOs;
     }
 }

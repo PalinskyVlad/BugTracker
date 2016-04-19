@@ -2,11 +2,19 @@ package com.bugtracker.mapper.impl;
 
 import com.bugtracker.dto.ProjectComponentDTO;
 import com.bugtracker.entity.ProjectComponent;
+import com.bugtracker.mapper.IssueMapper;
 import com.bugtracker.mapper.ProjectComponentMapper;
+import com.bugtracker.mapper.ProjectMapper;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Vlados on 4/4/2016.
@@ -14,61 +22,49 @@ import java.util.List;
 @Component
 public class ProjectComponentMapperImpl implements ProjectComponentMapper {
 
+    private final static MapperFacade mapper;
+
+    static
+    {
+        final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(ProjectComponent.class, ProjectComponentDTO.class)
+                .byDefault()
+                .register();
+        mapper = mapperFactory.getMapperFacade();
+    }
+
     @Override
     public ProjectComponentDTO projectComponentToProjectComponentDTO(ProjectComponent projectComponent) {
-
-        if (projectComponent == null) {
-            return null;
-        }
-
-        ProjectComponentDTO projectComponentDTO = new ProjectComponentDTO();
-
-        projectComponentDTO.setId(projectComponent.getId());
-        projectComponentDTO.setName(projectComponent.getName());
-        projectComponentDTO.setProject(projectComponent.getProject());
-        projectComponentDTO.setIssues(projectComponent.getIssues());
-
-        return projectComponentDTO;
+        return mapper.map(projectComponent, ProjectComponentDTO.class);
     }
 
     @Override
     public ProjectComponent projectComponentDTOToProjectComponent(ProjectComponentDTO projectComponentDTO) {
-        if (projectComponentDTO == null) {
-            return null;
-        }
-
-        ProjectComponent projectComponent = new ProjectComponent();
-
-        projectComponent.setId(projectComponentDTO.getId());
-        projectComponent.setName(projectComponentDTO.getName());
-        projectComponent.setProject(projectComponentDTO.getProject());
-        projectComponent.setIssues(projectComponentDTO.getIssues());
-
-        return projectComponent;
+        return mapper.map(projectComponentDTO, ProjectComponent.class);
     }
 
     @Override
-    public List<ProjectComponentDTO> projectComponentsToProjectComponentDTOs(List<ProjectComponent> projectComponents) {
+    public Set<ProjectComponentDTO> projectComponentsToProjectComponentDTOs(Set<ProjectComponent> projectComponents) {
         if (projectComponents == null) {
             return null;
         }
 
-        List<ProjectComponentDTO> projectComponentDTOs = new ArrayList<ProjectComponentDTO>();
+        Set<ProjectComponentDTO> projectComponentDTOs = new HashSet<ProjectComponentDTO>();
 
-        for (ProjectComponent issue : projectComponents) {
-            projectComponentDTOs.add(projectComponentToProjectComponentDTO(issue));
+        for (ProjectComponent projectComponent : projectComponents) {
+            projectComponentDTOs.add(projectComponentToProjectComponentDTO(projectComponent));
         }
 
         return projectComponentDTOs;
     }
 
     @Override
-    public List<ProjectComponent> projectComponentDTOsToProjectComponents(List<ProjectComponentDTO> projectComponentDTOs) {
+    public Set<ProjectComponent> projectComponentDTOsToProjectComponents(Set<ProjectComponentDTO> projectComponentDTOs) {
         if (projectComponentDTOs == null) {
             return null;
         }
 
-        List<ProjectComponent> projectComponents = new ArrayList<ProjectComponent>();
+        Set<ProjectComponent> projectComponents = new HashSet<ProjectComponent>();
 
         for (ProjectComponentDTO projectComponentDTO : projectComponentDTOs) {
             projectComponents.add(projectComponentDTOToProjectComponent(projectComponentDTO));

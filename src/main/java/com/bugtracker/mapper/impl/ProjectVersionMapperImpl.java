@@ -3,11 +3,19 @@ package com.bugtracker.mapper.impl;
 import com.bugtracker.dto.ProjectVersionDTO;
 import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.ProjectVersion;
+import com.bugtracker.mapper.IssueMapper;
+import com.bugtracker.mapper.ProjectMapper;
 import com.bugtracker.mapper.ProjectVersionMapper;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Vlados on 4/4/2016.
@@ -15,63 +23,50 @@ import java.util.List;
 @Component
 public class ProjectVersionMapperImpl implements ProjectVersionMapper {
 
+    private final static MapperFacade mapper;
+
+    static
+    {
+        final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(ProjectVersion.class, ProjectVersionDTO.class)
+                .byDefault()
+                .register();
+        mapper = mapperFactory.getMapperFacade();
+    }
+
+
     @Override
     public ProjectVersionDTO projectVersionToProjectVersionDTO(ProjectVersion projectVersion) {
-
-        if (projectVersion == null) {
-            return null;
-        }
-
-        ProjectVersionDTO projectVersionDTO = new ProjectVersionDTO();
-
-        projectVersionDTO.setId(projectVersion.getId());
-        projectVersionDTO.setName(projectVersion.getName());
-        projectVersionDTO.setProject(projectVersion.getProject());
-        projectVersionDTO.setRelease(projectVersion.isRelease());
-        projectVersionDTO.setIssues(projectVersion.getIssues());
-
-        return projectVersionDTO;
+        return mapper.map(projectVersion, ProjectVersionDTO.class);
     }
 
     @Override
     public ProjectVersion projectVersionDTOToProjectVersion(ProjectVersionDTO projectVersionDTO) {
-        if (projectVersionDTO == null) {
-            return null;
-        }
-
-        ProjectVersion projectVersion = new ProjectVersion();
-
-        projectVersion.setId(projectVersionDTO.getId());
-        projectVersion.setName(projectVersionDTO.getName());
-        projectVersion.setProject(projectVersionDTO.getProject());
-        projectVersion.setRelease(projectVersionDTO.isRelease());
-        projectVersion.setIssues(projectVersionDTO.getIssues());
-
-        return projectVersion;
+        return mapper.map(projectVersionDTO, ProjectVersion.class);
     }
 
     @Override
-    public List<ProjectVersionDTO> projectVersionsToProjectVersionDTOs(List<ProjectVersion> projectVersions) {
+    public Set<ProjectVersionDTO> projectVersionsToProjectVersionDTOs(Set<ProjectVersion> projectVersions) {
         if (projectVersions == null) {
             return null;
         }
 
-        List<ProjectVersionDTO> projectVersionDTOs = new ArrayList<ProjectVersionDTO>();
+        Set<ProjectVersionDTO> projectVersionDTOs = new HashSet<ProjectVersionDTO>();
 
-        for (ProjectVersion issue : projectVersions) {
-            projectVersionDTOs.add(projectVersionToProjectVersionDTO(issue));
+        for (ProjectVersion projectVersion : projectVersions) {
+            projectVersionDTOs.add(projectVersionToProjectVersionDTO(projectVersion));
         }
 
         return projectVersionDTOs;
     }
 
     @Override
-    public List<ProjectVersion> projectVersionDTOsToProjectVersions(List<ProjectVersionDTO> projectVersionDTOs) {
+    public Set<ProjectVersion> projectVersionDTOsToProjectVersions(Set<ProjectVersionDTO> projectVersionDTOs) {
         if (projectVersionDTOs == null) {
             return null;
         }
 
-        List<ProjectVersion> projectVersions = new ArrayList<ProjectVersion>();
+        Set<ProjectVersion> projectVersions = new HashSet<ProjectVersion>();
 
         for (ProjectVersionDTO projectVersionDTO : projectVersionDTOs) {
             projectVersions.add(projectVersionDTOToProjectVersion(projectVersionDTO));

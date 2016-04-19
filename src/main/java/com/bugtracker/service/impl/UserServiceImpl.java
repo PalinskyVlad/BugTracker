@@ -69,11 +69,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getAll() {
-        return mapper.usersToUserDTOs(userRepository.findAll());
-    }
-
-    @Override
     public boolean confirmSecretCode(String secretCode) {
         UserDTO userDTO = mapper.userToUserDTO(userRepository.findBySecretCode(secretCode));
         if (userDTO == null) { return false; }

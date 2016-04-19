@@ -15,7 +15,7 @@
             showProjects.empty();
             $.get("/projects", function (data) {
                 for (var i in data) {
-                    showProjects.append("<option>" + data[i] + "</option>");
+                    showProjects.append("<option value='" + data[i] + "'>" + data[i] + "</option>");
                 }
             });
         }
