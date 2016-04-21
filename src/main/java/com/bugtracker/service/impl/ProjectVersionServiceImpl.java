@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.ProjectVersionRepository;
 import com.bugtracker.service.ProjectVersionService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
 @Service
+@Transactional
 public class ProjectVersionServiceImpl implements ProjectVersionService {
 
     @Autowired

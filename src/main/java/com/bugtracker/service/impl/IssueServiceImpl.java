@@ -20,11 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.IssueRepository;
 import com.bugtracker.service.IssueService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Set;
 
 @Service
+@Transactional
 public class IssueServiceImpl implements IssueService {
 
     @Autowired
