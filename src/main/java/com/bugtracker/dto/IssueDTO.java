@@ -12,10 +12,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Vlados on 4/4/2016.
- * http://g00glen00b.be/mapstruct/
- */
 public class IssueDTO {
     private long id;
     private String name;

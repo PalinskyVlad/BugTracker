@@ -23,7 +23,6 @@
 
         <h2><spring:message code="project.project.components"/></h2>
 
-
         <table class="table table-striped">
             <thead>
             <tr>

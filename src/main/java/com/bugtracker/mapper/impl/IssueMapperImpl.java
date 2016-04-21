@@ -6,17 +6,11 @@ import com.bugtracker.mapper.*;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Vlados on 4/4/2016.
- */
 @Component
 public class IssueMapperImpl implements IssueMapper {
 

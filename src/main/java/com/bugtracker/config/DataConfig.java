@@ -1,6 +1,5 @@
 package com.bugtracker.config;
 
-import org.hibernate.ejb.HibernatePersistence;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,9 +16,6 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by Vlados on 15.03.2016.
- */
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("com.bugtracker")

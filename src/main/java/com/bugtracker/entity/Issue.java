@@ -9,9 +9,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Vlados on 14.03.2016.
- */
 @Entity
 @Table(name = "issue")
 public class Issue {
@@ -29,7 +26,6 @@ public class Issue {
     private IssuePriorityEnum priority;
 
     private Set<ProjectComponent> components = new HashSet<ProjectComponent>();
-
 
     private Set<ProjectVersion> versions = new HashSet<ProjectVersion>();
 

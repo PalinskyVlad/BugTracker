@@ -11,10 +11,9 @@
 <body>
 
     <div class="modal fade" id="deleteProject" role="dialog">
-        <form action="/deleteProject/${project.id}" method="post">
+        <form action="/deleteProject/${project.name}" method="post">
         <div class="modal-dialog">
 
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #d04437; color: white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>

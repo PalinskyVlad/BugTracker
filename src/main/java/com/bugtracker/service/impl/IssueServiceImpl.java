@@ -22,12 +22,8 @@ import com.bugtracker.repository.IssueRepository;
 import com.bugtracker.service.IssueService;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Vlados on 15.03.2016.
- */
 @Service
 public class IssueServiceImpl implements IssueService {
 

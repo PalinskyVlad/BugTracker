@@ -10,11 +10,11 @@ public class UserDTOUtil {
 
     public static UserDTO createUserDTO() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setEmail("lolik@gmail.com");
-        userDTO.setFirstName("Grisha");
-        userDTO.setLastName("Petrov");
-        userDTO.setUsername("demon");
-        userDTO.setPassword("lalka");
+        userDTO.setEmail("palinskyvlad@gmail.com");
+        userDTO.setFirstName("Vlad");
+        userDTO.setLastName("Palinsky");
+        userDTO.setUsername("username");
+        userDTO.setPassword("password");
         userDTO.setRole(UserRoleEnum.ADMIN);
 
         return userDTO;

@@ -9,18 +9,13 @@ import com.bugtracker.mapper.IssueMapper;
 import com.bugtracker.mapper.ProjectComponentMapper;
 import com.bugtracker.mapper.ProjectMapper;
 import com.bugtracker.repository.ProjectRepository;
-import com.bugtracker.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.ProjectComponentRepository;
 import com.bugtracker.service.ProjectComponentService;
 
-import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Vlados on 15.03.2016.
- */
 @Service
 public class ProjectComponentServiceImpl implements ProjectComponentService{
 

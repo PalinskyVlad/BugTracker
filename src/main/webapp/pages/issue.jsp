@@ -60,14 +60,11 @@
                     <c:if test="${issue.status  == 'RESOLVED'}"><li class="list-group-item"><strong style="color: #707070"><spring:message code="status"/> </strong><span class="label label-success"><spring:message code ="status.open"/></span></li></c:if>
                     <c:if test="${issue.status  == 'CLOSED'}"><li class="list-group-item"><strong style="color: #707070"><spring:message code="status"/> </strong><span class="label label-important"><spring:message code ="status.open"/></span></li></c:if>
                     <li class="list-group-item"><strong style="color: #707070"><spring:message code="created.date"/>:</strong> ${issue.createdDate}</li>
-
                 </ul>
         <h4><spring:message code="description"/></h4>
         <p>${issue.description}</p>
-
     </div>
 </div>
-
 
 </body>
 </html>

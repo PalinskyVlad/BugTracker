@@ -1,13 +1,7 @@
 package com.bugtracker.service;
 
 import com.bugtracker.dto.UserDTO;
-import com.bugtracker.entity.User;
 
-import java.util.List;
-
-/**
- * Created by Vlados on 15.03.2016.
- */
 public interface UserService {
 
     UserDTO addUser(UserDTO userDTO);

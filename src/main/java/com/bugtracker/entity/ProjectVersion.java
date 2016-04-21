@@ -1,13 +1,9 @@
 package com.bugtracker.entity;
 
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Vlados on 14.03.2016.
- */
 @Entity
 @Table(name = "project_version")
 public class ProjectVersion {

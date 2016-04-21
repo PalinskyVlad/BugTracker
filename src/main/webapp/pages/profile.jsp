@@ -17,9 +17,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 </head>
-
 <body>
-
 <jsp:include page='navigation.jsp' />
     <div style="height: 15%; margin-left: 2%">
         <h2 style="color:#2e6da4"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <spring:message code="profile"/>: <security:authentication property="principal.username" /></h2>
@@ -33,58 +31,50 @@
         <div class="col-lg-6">
 
             <form class="form-horizontal">
-            <div class="form-group">
-                <div class ="col-lg-3"><h4><spring:message code ="profile.summary.details"/></h4></div>
-                <div class="col-lg-8">
-                    <div class="dropdown navbar-right" style="margin-right: 10px">
-                        <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="<c:url value="/profile" />"><spring:message code="profile.summary.edit"/></a></li>
-                        </ul>
+                <div class="form-group">
+                    <div class ="col-lg-3"><h4><spring:message code ="profile.summary.details"/></h4></div>
+                    <div class="col-lg-8">
+                        <div class="dropdown navbar-right" style="margin-right: 10px">
+                            <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="<c:url value="/profile" />"><spring:message code="profile.summary.edit"/></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-
-
-
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><spring:message code ="profile.username"/></label>
                     <div class="col-lg-8">
                         <h5>${user.username}</h5>
                     </div>
                 </div>
-
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><spring:message code ="profile.full.name"/></label>
-                <div class="col-lg-8">
-                    <h5>${user.lastName} ${user.firstName}</h5>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><spring:message code ="profile.full.name"/></label>
+                    <div class="col-lg-8">
+                        <h5>${user.lastName} ${user.firstName}</h5>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><spring:message code ="profile.email"/></label>
-                <div class="col-lg-8">
-                    <h5>${user.email}</h5>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><spring:message code ="profile.email"/></label>
+                    <div class="col-lg-8">
+                        <h5>${user.email}</h5>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><spring:message code ="profile.password"/></label>
-                <div class="col-lg-8">
-                    <h5>Change Password</h5>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><spring:message code ="profile.password"/></label>
+                    <div class="col-lg-8">
+                        <h5>Change Password</h5>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><spring:message code ="profile.groups"/></label>
-                <div class="col-lg-8">
-                    <h5>BugHunter-users</h5>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><spring:message code ="profile.groups"/></label>
+                    <div class="col-lg-8">
+                        <h5>BugHunter-users</h5>
+                    </div>
                 </div>
-            </div>
-
             </form>
 
         </div>

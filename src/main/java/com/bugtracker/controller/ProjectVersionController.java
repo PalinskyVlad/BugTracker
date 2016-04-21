@@ -1,11 +1,8 @@
 package com.bugtracker.controller;
 
-/**
- * Created by Vlados on 4/12/2016.
- */
-
 import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.dto.ProjectVersionDTO;
+import com.bugtracker.logger.UserActionLogger;
 import com.bugtracker.service.ProjectService;
 import com.bugtracker.service.ProjectVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +12,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
+
 @Controller
 public class ProjectVersionController {
 
     @Autowired
-    ProjectVersionService projectVersionService;
+    private ProjectVersionService projectVersionService;
 
     @Autowired
-    ProjectService projectService;
+    private ProjectService projectService;
+
+    @Autowired
+    private UserActionLogger logger;
 
     @RequestMapping(value = "/{projectName}/addProjectVersion")
-    public ModelAndView addProjectVersion(@PathVariable String projectName, ProjectVersionDTO projectVersionDTO){
-
+    public ModelAndView addProjectVersion(@PathVariable String projectName, ProjectVersionDTO projectVersionDTO, Principal principal){
         ProjectDTO projectDTO = projectService.getByName(projectName);
-
         projectVersionService.addProjectVersion(projectDTO, projectVersionDTO);
-
+        logger.projectVersionAdded(principal.getName(), projectDTO.getName(), projectVersionDTO.getName() );
         ModelAndView modelAndView = new ModelAndView();
-
         modelAndView.setViewName("project");
         modelAndView.addObject("project", projectDTO);
         return modelAndView;

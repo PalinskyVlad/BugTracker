@@ -7,9 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-/**
- * Created by Vlados on 14.03.2016.
- */
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("select p from Project p where p.name =:name")

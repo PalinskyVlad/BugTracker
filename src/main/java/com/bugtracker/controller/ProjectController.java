@@ -1,9 +1,10 @@
 package com.bugtracker.controller;
 
 import com.bugtracker.dto.ProjectDTO;
+import com.bugtracker.logger.UserActionLogger;
 import com.bugtracker.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,26 +14,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Vlados on 3/30/2016.
- */
 @Controller
 public class ProjectController {
+
 
     @Resource
     private ProjectService projectService;
 
+    @Autowired
+    private UserActionLogger logger;
+
     @RequestMapping(value = "/addProject", method = RequestMethod.POST)
-    public ModelAndView addProject(@RequestParam("image") MultipartFile  image, ProjectDTO projectDTO) {
-        try {
-            projectDTO.setAvatar(image.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public ModelAndView addProject(@RequestParam("image") MultipartFile  image, ProjectDTO projectDTO, Principal principal) {
         ProjectDTO savedProjectDTO= projectService.addProject(image, projectDTO);
+
+        logger.projectAdded(principal.getName(), savedProjectDTO.getName());
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("project");
         modelAndView.addObject("project", savedProjectDTO);
@@ -68,9 +69,10 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/editProject/{name}", method = RequestMethod.POST)
-    public ModelAndView editProject(@PathVariable String name, @RequestParam("image") MultipartFile  image, ProjectDTO projectDTO) {
+    public ModelAndView editProject(@PathVariable String name, @RequestParam("image") MultipartFile  image, ProjectDTO projectDTO, Principal principal) {
 
         projectService.editProject(image, name, projectDTO);
+        logger.projectEdited(principal.getName(), projectDTO.getName());
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("project");
@@ -79,9 +81,10 @@ public class ProjectController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/deleteProject/{id}")
-    public String deleteProject(@PathVariable long id) {
-        projectService.delete(id);
+    @RequestMapping(value = "/deleteProject/{name}")
+    public String deleteProject(@PathVariable String name, Principal principal) {
+        projectService.delete(name);
+        logger.projectDeleted(principal.getName(), name);
         return "dashboard";
     }
 

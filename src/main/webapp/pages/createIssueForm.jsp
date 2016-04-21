@@ -46,10 +46,8 @@
         }
     </script>
 
-
-        </head>
+</head>
 <body>
-
 <div class="modal fate" id="createIssue" role="dialog">
     <form class="form-horizontal" action = "/createIssue" method = "post" commandName = "issue">
 
@@ -121,7 +119,6 @@
                             </div>
                         </div>
 
-
                         <div class = "form-group">
                             <label class="col-lg-3 control-label"><spring:message code ="create.issue.component.s"/></label>
                             <div class="col-lg-6">
@@ -154,20 +151,17 @@
                             </div>
                         </div>
 
-
                     <div class="modal-footer">
                         <button class="btn btn-primary" type = "submit"><spring:message code ="create.issue.save.issue"/></button>
                         <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><spring:message code ="create.issue.close"/></button>
                     </div>
 
-
                 </div>
             </div>
         </div>
     </div>
-        </form>
-
-    </div>
+    </form>
+</div>
 
 </body>
 </html>

@@ -1,8 +1,6 @@
 package com.bugtracker.config;
 
 import com.bugtracker.service.impl.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

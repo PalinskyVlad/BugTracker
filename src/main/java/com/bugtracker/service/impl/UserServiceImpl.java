@@ -9,11 +9,6 @@ import org.springframework.stereotype.Service;
 import com.bugtracker.repository.UserRepository;
 import com.bugtracker.service.UserService;
 
-import java.util.List;
-
-/**
- * Created by Vlados on 15.03.2016.
- */
 @Service
 public class UserServiceImpl implements UserService {
 

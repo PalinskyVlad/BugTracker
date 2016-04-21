@@ -1,8 +1,6 @@
 package com.bugtracker.service.impl;
 
-import com.bugtracker.dto.ProjectComponentDTO;
 import com.bugtracker.dto.ProjectDTO;
-import com.bugtracker.entity.Project;
 import com.bugtracker.entity.ProjectComponent;
 import com.bugtracker.entity.ProjectVersion;
 import com.bugtracker.mapper.ProjectMapper;
@@ -15,9 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.*;
 
-/**
- * Created by Vlados on 15.03.2016.
- */
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -45,6 +40,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void delete(long id) {
         projectRepository.delete(id);
+    }
+
+    @Override
+    public void delete(String name) {
+        projectRepository.delete(projectRepository.findByName(name).getId());
     }
 
     @Override

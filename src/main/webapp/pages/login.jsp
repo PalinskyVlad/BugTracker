@@ -18,9 +18,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 </head>
-
 <body>
-
 <jsp:include page='navigation.jsp' />
     <div class = "container" style="margin-top: 2%">
     <div class="jumbotron" style="width: 50%; margin: auto">
@@ -70,13 +68,6 @@
 
         </form>
     </div>
-
-
-    <div class="footer">
-        <p>© BugHunter 2016</p>
-    </div>
-
-
 
 </div>
 </body>

@@ -7,9 +7,6 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
 
-/**
- * Created by Vlados on 3/26/2016.
- */
 public class VerifyRecaptcha {
 
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
@@ -25,13 +22,11 @@ public class VerifyRecaptcha {
             URL obj = new URL(url);
             HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
-            // add reuqest header
             con.setRequestMethod("POST");
 
             String postParams = "secret=" + secret + "&response="
                     + gRecaptchaResponse;
 
-            // Send post request
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.writeBytes(postParams);
@@ -50,9 +45,6 @@ public class VerifyRecaptcha {
             }
             in.close();
 
-            // print result
-
-            //parse JSON response and return 'success' value
             JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
             JsonObject jsonObject = jsonReader.readObject();
             jsonReader.close();

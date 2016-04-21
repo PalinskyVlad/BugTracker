@@ -26,8 +26,6 @@
                 }
             });
         }
-
-
     </script>
 </head>
 
@@ -47,7 +45,6 @@
                         <p><spring:message code="dashboard.introduction.text"/></p>
                     </div>
                 </div>
-
 
                 <div class = "panel panel-primary">
                     <div class = "panel-heading">
@@ -119,7 +116,6 @@
                 </div>
                 </sec:authorize>
 
-
                 <sec:authorize access="isAuthenticated()">
                 <div class = "panel panel-primary">
                     <div class = "panel-heading">
@@ -130,7 +126,6 @@
                 </div>
                 </sec:authorize>
 
-
                 <div class = "panel panel-primary">
                     <div class = "panel-heading">
                         <h5 style="margin: 0;"> <spring:message code="dashboard.activity.stream"/></h5>
@@ -139,11 +134,9 @@
                     </div>
                 </div>
 
-
             </div>
 
         </div>
-
 
         <div class="footer">
             <p>© BugHunter 2016</p>

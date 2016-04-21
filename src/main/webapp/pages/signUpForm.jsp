@@ -106,7 +106,7 @@
 </head>
 <body>
     <jsp:include page='navigation.jsp' />
-    <div class = "container">
+    <div class = "container" style="margin-top: 2%">
         <div class="jumbotron" style="width: 50%;margin-top: 20px; margin: 0 auto">
 
     <h2><spring:message code="sign.up"/></h2>
@@ -115,27 +115,29 @@
 
         <div class="field-group">
             <label accesskey="f" for="signup-firstName"><spring:message code="sign.up.first.name"/></label>
+            <form:errors path="firstName" cssstyle="error"></form:errors>
             <input  class = "form-control" style="width: 60%;" type="text" id = "signup-firstName" name="firstName" maxlength="255" title = "First name must not be blank" required pattern = "\w+">
         </div>
         <div class="field-group">
             <label accesskey="f" for="signup-lastName"><spring:message code="sign.up.last.name"/></label>
             <input  class = "form-control" style="width: 60%;" type="text" id = "signup-lastName" name="lastName" maxlength="255" title = "Last name must not be blank" required pattern = "\w+">
+            <form:errors path="lastName" cssstyle="error"></form:errors>
         </div>
         <div class="field-group">
             <label accesskey="e" for="signup-email"><spring:message code="sign.up.email"/></label>
-            <div style = "color: #ff0000">${emailError}</div>
+            <form:errors path="email" cssstyle="error"></form:errors>
             <input class="form-control" style="width: 60%;" type="text" id = "signup-email" name="email" maxlength="255" title = "Error e-mail format" required pattern = "[\w-]+@\w+\.\w+">
         </div>
         <div class="field-group">
             <label accesskey="u" for="signup-username"><spring:message code="sign.up.username"/></label>
-            <div style="color: #ff0000">${usernameError}</div>
-
+            <form:errors path="username" cssstyle="error"></form:errors>
             <input class="form-control" style="width: 60%;" type="text" id = "signup-username" name="username" maxlength="255" title="Username must not be blank and contain only letters, numbers and underscores." required pattern="\w+">
         </div>
 
 
         <div class="field-group">
             <label accesskey="p" for="signup-password"><spring:message code="sign.up.password"/></label>
+            <form:errors path="password" cssstyle="error"></form:errors>
             <input class="form-control" style="width: 60%;" type="password" id = "signup-password" name="password" maxlength="255" title="Password must contain at least 6 characters" required pattern="\w{6,}" onchange="
   this.setCustomValidity(this.validity.patternMismatch ? this.title : '');   if(this.checkValidity()) form.confirmPassword.pattern = this.value;">
         </div>
@@ -145,7 +147,8 @@
   this.setCustomValidity(this.validity.patternMismatch ? this.title : '');">
         </div>
 
-        <tr style="color: #ff0000">${captchaError}</tr>
+        <%--<form:errors path="captcha" cssstyle="color: red;"></form:errors>--%>
+
         <div class="g-recaptcha" style = "margin-top: 10px" data-sitekey="6Ld-zBsTAAAAANcUPiaRORRxn9LeS9ep64PbpH9-"></div>
         <br/>
 

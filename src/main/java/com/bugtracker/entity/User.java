@@ -1,8 +1,6 @@
 package com.bugtracker.entity;
 
 import com.bugtracker.entity.enums.UserRoleEnum;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 import javax.persistence.*;
@@ -10,9 +8,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Vlados on 14.03.2016.
- */
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -53,7 +48,6 @@ public class User implements Serializable {
     }
 
 
-    @NotEmpty
     @Column(name = "username", length = 64, nullable = false, unique = true)
     public String getUsername() {
         return username;
@@ -63,8 +57,6 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    @Email
-    @NotEmpty
     @Column(name = "email", length = 64, nullable = false, unique = true)
     public String getEmail() {
         return email;
@@ -74,7 +66,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @NotEmpty
     @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
@@ -84,7 +75,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @NotEmpty
     @Column(name = "first_name", length = 64, nullable = false)
     public String getFirstName() {
         return firstName;
@@ -94,7 +84,6 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
-    @NotEmpty
     @Column(name = "last_name", length = 64, nullable = false)
     public String getLastName() {
         return lastName;

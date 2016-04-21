@@ -22,10 +22,10 @@
 
     <div class="modal fate" id="addProject" role="dialog">
         <form class="form-horizontal" enctype="multipart/form-data" action = "/addProject" method = "post" commandName = "project">
-
         <div class="modal-header">
             <div class="modal-dialog">
                 <div class="modal-content">
+
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h3 class="modal-title" id="addProjectLabel"><spring:message code="add.project"/></h3>
@@ -70,7 +70,7 @@
                          </div>
                     </div>
 
-                        <div class="form-group">
+                    <div class="form-group">
                             <label class="col-lg-3 control-label"><spring:message code ="add.project.project.avatar"/></label>
                             <div class="col-lg-8">
                                 <div class="fileinput fileinput-new" data-provides="fileinput">

@@ -19,9 +19,6 @@
                 }
             });
         }
-
-
-
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -87,15 +84,9 @@
                         </sec:authorize>
                     </ul>
                 </li>
-
             </ul>
 
-
-
-
-
             <div class = "nav navbar-btn navbar-right" >
-
                 <div class="dropdown navbar-left" style="margin-right: 10px">
                     <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><spring:message code="language"/>
                     </button>
@@ -109,7 +100,7 @@
                     <sec:authorize access="!isAuthenticated()">
                         <a class="btn btn-sm btn-success" href="<c:url value="/login" />" role="button"><spring:message code="navigation.log.in"/></a>
                     </sec:authorize>
-                <sec:authorize access="isAuthenticated()">
+                    <sec:authorize access="isAuthenticated()">
                         <div class="dropdown navbar-left" style="margin-right: 10px">
                             <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -128,12 +119,9 @@
                 </div>
 
             </form>
-        </div><!-- /.navbar-collapse -->
-
-
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
-
 </body>
 </html>
 

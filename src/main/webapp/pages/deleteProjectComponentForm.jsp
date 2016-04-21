@@ -14,7 +14,6 @@
     <form action="/deleteProjectComponent/${projectComponent.id}" method="post">
         <div class="modal-dialog">
 
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #d04437; color: white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>

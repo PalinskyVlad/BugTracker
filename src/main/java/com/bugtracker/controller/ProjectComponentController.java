@@ -2,33 +2,35 @@ package com.bugtracker.controller;
 
 import com.bugtracker.dto.ProjectComponentDTO;
 import com.bugtracker.dto.ProjectDTO;
-import com.bugtracker.entity.ProjectComponent;
+import com.bugtracker.logger.UserActionLogger;
 import com.bugtracker.service.ProjectComponentService;
 import com.bugtracker.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Created by Vlados on 4/12/2016.
- */
+import java.security.Principal;
+
 @Controller
 public class ProjectComponentController {
 
     @Autowired
-    ProjectComponentService projectComponentService;
+    private ProjectComponentService projectComponentService;
 
     @Autowired
-    ProjectService projectService;
+    private ProjectService projectService;
+
+    @Autowired
+    private UserActionLogger logger;
 
     @RequestMapping(value = "/{projectName}/createProjectComponent")
-    public ModelAndView createProjectComponent(@PathVariable String projectName, ProjectComponentDTO projectComponentDTO){
+    public ModelAndView createProjectComponent(@PathVariable String projectName, ProjectComponentDTO projectComponentDTO, Principal principal){
         ProjectDTO projectDTO = projectService.getByName(projectName);
         projectComponentService.addProjectComponent(projectDTO, projectComponentDTO);
+        logger.projectComponentAdded(principal.getName(), projectDTO.getName(), projectComponentDTO.getName());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("project");
         modelAndView.addObject("project", projectDTO);

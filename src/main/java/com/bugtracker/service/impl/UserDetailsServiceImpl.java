@@ -1,8 +1,6 @@
 package com.bugtracker.service.impl;
 
 import com.bugtracker.dto.UserDTO;
-import com.bugtracker.entity.User;
-import com.bugtracker.entity.enums.UserRoleEnum;
 import com.bugtracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,13 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Vlados on 17.03.2016.
- */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
