@@ -8,28 +8,36 @@ import java.util.Set;
 @Table(name = "project")
 public class Project {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(name = "name", length = 64, nullable = false, unique = true)
     private String name;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "privacy")
     private boolean privacy;
 
+    @Lob
+    @Column(name = "avatar", nullable = false, columnDefinition = "mediumblob")
     private byte[] avatar;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
     private Set<ProjectComponent> components = new HashSet<ProjectComponent>();
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
     private Set<ProjectVersion> versions = new HashSet<ProjectVersion>();
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
     private Set<Issue> issues = new HashSet<Issue>();
 
     public Project() {
 
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }
@@ -38,7 +46,6 @@ public class Project {
         this.id = id;
     }
 
-    @Column(name = "name", length = 64, nullable = false, unique = true)
     public String getName() {
         return name;
     }
@@ -47,7 +54,6 @@ public class Project {
         this.name = name;
     }
 
-    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -56,7 +62,6 @@ public class Project {
         this.description = description;
     }
 
-    @Column(name = "privacy")
     public boolean isPrivacy() {
         return privacy;
     }
@@ -65,8 +70,6 @@ public class Project {
         this.privacy = privacy;
     }
 
-    @Lob
-    @Column(name = "avatar", nullable = false, columnDefinition = "mediumblob")
     public byte[] getAvatar() {
         return avatar;
     }
@@ -75,7 +78,6 @@ public class Project {
         this.avatar = avatar;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
     public Set<ProjectComponent> getComponents() {
         return components;
     }
@@ -84,7 +86,6 @@ public class Project {
         this.components = components;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
     public Set<ProjectVersion> getVersions() {
         return versions;
     }
@@ -93,7 +94,6 @@ public class Project {
         this.versions = versions;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
     public Set<Issue> getIssues() {
         return issues;
     }

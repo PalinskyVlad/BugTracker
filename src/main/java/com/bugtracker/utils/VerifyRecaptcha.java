@@ -9,8 +9,8 @@ import java.net.URL;
 
 public class VerifyRecaptcha {
 
-    public static final String url = "https://www.google.com/recaptcha/api/siteverify";
-    public static final String secret = "6Ld-zBsTAAAAAAW22ra-60VGyU75HqxcYzZ6VhE9";
+    private static final String STRING_URL = "https://www.google.com/recaptcha/api/siteverify";
+    private static final String SECRET = "6Ld-zBsTAAAAAAW22ra-60VGyU75HqxcYzZ6VhE9";
 
     public static boolean verify(String gRecaptchaResponse) throws IOException {
 
@@ -19,12 +19,12 @@ public class VerifyRecaptcha {
         }
 
         try{
-            URL obj = new URL(url);
+            URL obj = new URL(STRING_URL);
             HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
             con.setRequestMethod("POST");
 
-            String postParams = "secret=" + secret + "&response="
+            String postParams = "secret=" + SECRET + "&response="
                     + gRecaptchaResponse;
 
             con.setDoOutput(true);

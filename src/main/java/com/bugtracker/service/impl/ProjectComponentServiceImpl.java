@@ -8,6 +8,7 @@ import com.bugtracker.entity.ProjectComponent;
 import com.bugtracker.mapper.IssueMapper;
 import com.bugtracker.mapper.ProjectComponentMapper;
 import com.bugtracker.mapper.ProjectMapper;
+import com.bugtracker.repository.IssueRepository;
 import com.bugtracker.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Service
-@Transactional
 public class ProjectComponentServiceImpl implements ProjectComponentService{
 
     @Autowired
@@ -33,15 +33,12 @@ public class ProjectComponentServiceImpl implements ProjectComponentService{
     @Autowired
     private ProjectComponentMapper componentMapper;
 
-    @Autowired
-    private ProjectMapper projectMapper;
-
     @Override
-    public ProjectComponentDTO addProjectComponent(ProjectDTO projectDTO, ProjectComponentDTO projectComponentDTO) {
+    public ProjectComponentDTO addProjectComponent(String projectName, ProjectComponentDTO projectComponentDTO) {
 
         ProjectComponent projectComponent = componentMapper.projectComponentDTOToProjectComponent(projectComponentDTO);
 
-        Project project = projectMapper.projectDTOToProject(projectDTO);
+        Project project =  projectRepository.findByName(projectName);
 
 
         projectComponent.setProject(project);
@@ -70,18 +67,8 @@ public class ProjectComponentServiceImpl implements ProjectComponentService{
     }
 
     @Override
-    public Set<ProjectComponentDTO> getProjectComponents(String projectName) {
-        return componentMapper.projectComponentsToProjectComponentDTOs(projectRepository.findByName(projectName).getComponents());
-    }
-
-    @Override
     public Set<IssueDTO> getIssues(long id) {
         return issueMapper.issuesToIssueDTOs(projectComponentRepository.getById(id).getIssues());
-    }
-
-    @Override
-    public ProjectDTO getProjectByProjectComponentId(long id) {
-        return projectMapper.projectToProjectDTO(projectComponentRepository.getById(id).getProject());
     }
 
     @Override

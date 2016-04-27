@@ -21,7 +21,7 @@
 <body>
 
     <div class="modal fate" id="addProject" role="dialog">
-        <form class="form-horizontal" enctype="multipart/form-data" action = "/addProject" method = "post" commandName = "project">
+        <form class="form-horizontal" enctype="multipart/form-data" action = "/projects?create" method = "post" commandName = "projectDTO">
         <div class="modal-header">
             <div class="modal-dialog">
                 <div class="modal-content">

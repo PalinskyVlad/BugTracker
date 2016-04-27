@@ -18,7 +18,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 </head>
 <body>
-<jsp:include page='navigation.jsp' />
+<jsp:include page='../../jspf/navigation.jsp' />
     <div style="height: 15%; margin-left: 2%">
         <h2 style="color:#2e6da4"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <spring:message code="profile"/>: <security:authentication property="principal.username" /></h2>
     </div>

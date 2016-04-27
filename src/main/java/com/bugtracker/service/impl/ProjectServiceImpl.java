@@ -1,9 +1,17 @@
 package com.bugtracker.service.impl;
 
+import com.bugtracker.dto.IssueDTO;
+import com.bugtracker.dto.ProjectComponentDTO;
 import com.bugtracker.dto.ProjectDTO;
+import com.bugtracker.dto.ProjectVersionDTO;
 import com.bugtracker.entity.ProjectComponent;
 import com.bugtracker.entity.ProjectVersion;
+import com.bugtracker.mapper.IssueMapper;
+import com.bugtracker.mapper.ProjectComponentMapper;
 import com.bugtracker.mapper.ProjectMapper;
+import com.bugtracker.mapper.ProjectVersionMapper;
+import com.bugtracker.repository.IssueRepository;
+import com.bugtracker.repository.ProjectComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.ProjectRepository;
@@ -15,14 +23,28 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
-@Transactional
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
 
     @Autowired
+    private IssueRepository issueRepository;
+
+    @Autowired
+    private ProjectComponentRepository projectComponentRepository;
+
+    @Autowired
     private ProjectMapper mapper;
+
+    @Autowired
+    private IssueMapper issueMapper;
+
+    @Autowired
+    private ProjectComponentMapper projectComponentMapper;
+
+    @Autowired
+    private ProjectVersionMapper projectVersionMapper;
 
     @Override
     public ProjectDTO addProject(MultipartFile image, ProjectDTO projectDTO) {
@@ -50,10 +72,26 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-
     public ProjectDTO getByName(String name) {
         return mapper.projectToProjectDTO(projectRepository.findByName(name));
     }
+
+    @Override
+    public ProjectDTO getById(long id) {
+        return mapper.projectToProjectDTO(projectRepository.findById(id));
+    }
+
+    @Override
+    public ProjectDTO getByIssueId(long id) {
+        return mapper.projectToProjectDTO(issueRepository.getById(id).getProject());
+    }
+
+
+    @Override
+    public ProjectDTO getByProjectComponentId(long id) {
+        return mapper.projectToProjectDTO(projectComponentRepository.getById(id).getProject());
+    }
+
 
     @Override
     public ProjectDTO editProject(MultipartFile image, String name, ProjectDTO editedProjectDTO) {
@@ -99,4 +137,18 @@ public class ProjectServiceImpl implements ProjectService {
         return versionNames;
     }
 
+    @Override
+    public Set<IssueDTO> getIssues(String projectName) {
+        return issueMapper.issuesToIssueDTOs(projectRepository.findByName(projectName).getIssues());
+    }
+
+    @Override
+    public Set<ProjectComponentDTO> getProjectComponents(String projectName) {
+        return projectComponentMapper.projectComponentsToProjectComponentDTOs(projectRepository.findByName(projectName).getComponents());
+    }
+
+    @Override
+    public Set<ProjectVersionDTO> getProjectVersions(String projectName) {
+        return projectVersionMapper.projectVersionsToProjectVersionDTOs(projectRepository.findByName(projectName).getVersions());
+    }
 }

@@ -14,31 +14,41 @@ public class User implements Serializable {
 
     public static final ShaPasswordEncoder SHA_PASSWORD_ENCODER = new ShaPasswordEncoder(512);
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(name = "username", length = 64, nullable = false, unique = true)
     private String username;
 
+    @Column(name = "email", length = 64, nullable = false, unique = true)
     private String email;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "first_name", length = 64, nullable = false)
     private String firstName;
 
+    @Column(name = "last_name", length = 64, nullable = false)
     private String lastName;
 
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private UserRoleEnum role;
 
+    @Column(name = "secret_code")
     private String secretCode;
 
+    @Column(name = "confirmed")
     private boolean confirmed;
 
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private Set<Issue> issues = new HashSet<Issue>();
 
     public User() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }
@@ -48,7 +58,6 @@ public class User implements Serializable {
     }
 
 
-    @Column(name = "username", length = 64, nullable = false, unique = true)
     public String getUsername() {
         return username;
     }
@@ -57,7 +66,6 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    @Column(name = "email", length = 64, nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -66,7 +74,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -75,7 +82,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @Column(name = "first_name", length = 64, nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -84,7 +90,6 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
-    @Column(name = "last_name", length = 64, nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -93,8 +98,6 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
     public UserRoleEnum getRole() {
         return role;
     }
@@ -103,7 +106,6 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    @Column(name = "secret_code")
     public String getSecretCode() {
         return secretCode;
     }
@@ -112,7 +114,6 @@ public class User implements Serializable {
         this.secretCode = secretCode;
     }
 
-    @Column(name = "confirmed")
     public boolean isConfirmed() {
         return confirmed;
     }
@@ -121,7 +122,6 @@ public class User implements Serializable {
         this.confirmed = confirmed;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     public Set<Issue> getIssues() {
         return issues;
     }

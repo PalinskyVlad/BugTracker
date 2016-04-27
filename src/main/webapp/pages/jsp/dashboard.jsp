@@ -22,7 +22,7 @@
             showProjectsList.empty();
             $.get("/projects", function (data) {
                 for (var i in data) {
-                    showProjectsList.append("<li style='background-color: #eeeeee; margin-top: 1%;'><a href='/project/" + data[i] + "' class='menu-item'><span><img src='/projectImageDisplay?name=" + data[i] + "' width='20' height='20'></span><b style='margin-left: 10px'>" + data[i] + "</b></a></li>");
+                    showProjectsList.append("<li style='background-color: #eeeeee; margin-top: 1%;'><a href='/" + data[i] + "' class='menu-item'><span><img src='/projectImageDisplay?name=" + data[i] + "' width='20' height='20'></span><b style='margin-left: 10px'>" + data[i] + "</b></a></li>");
                 }
             });
         }
@@ -31,7 +31,7 @@
 
 <body onload="getProjectsList()">
 
-    <jsp:include page='navigation.jsp' />
+    <jsp:include page='../jspf/navigation.jsp' />
         <h2 style="color: #2e6da4; margin-left: 1%"><spring:message code="dashboard.system.dashboard"/></h2>
         <div class="row" style="margin-right: 0">
             <div class="col-lg-6" style="margin-left: 2%">

@@ -8,7 +8,7 @@
     <link href="<c:url value="/pages/css/jumbotron-narrow.css" />" rel="stylesheet">
 </head>
 <body>
-<jsp:include page='navigation.jsp' />
+<jsp:include page='../jspf/navigation.jsp' />
 <div class = "contatiner">
 
     <div class="jumbotron" style="width: 50%;margin-top: 20px; margin: 0 auto">

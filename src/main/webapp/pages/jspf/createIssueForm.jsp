@@ -49,7 +49,7 @@
 </head>
 <body>
 <div class="modal fate" id="createIssue" role="dialog">
-    <form class="form-horizontal" action = "/createIssue" method = "post" commandName = "issue">
+    <form class="form-horizontal" action = "/issues?create" method = "post" commandName = "issueDTO">
 
         <div class="modal-header">
             <div class="modal-dialog">
@@ -151,13 +151,16 @@
                             </div>
                         </div>
 
+
+
+                </div>
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type = "submit"><spring:message code ="create.issue.save.issue"/></button>
                         <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><spring:message code ="create.issue.close"/></button>
                     </div>
 
                 </div>
-            </div>
         </div>
     </div>
     </form>

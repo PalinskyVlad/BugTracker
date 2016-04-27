@@ -105,7 +105,7 @@
     </script>
 </head>
 <body>
-    <jsp:include page='navigation.jsp' />
+    <jsp:include page='../jspf/navigation.jsp' />
     <div class = "container" style="margin-top: 2%">
         <div class="jumbotron" style="width: 50%;margin-top: 20px; margin: 0 auto">
 

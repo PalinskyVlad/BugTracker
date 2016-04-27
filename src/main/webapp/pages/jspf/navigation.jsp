@@ -3,7 +3,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="sping" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <html>
 <head>
     <title>Navigation</title>
@@ -97,21 +96,21 @@
                     </ul>
                 </div>
 
-                    <sec:authorize access="!isAuthenticated()">
-                        <a class="btn btn-sm btn-success" href="<c:url value="/login" />" role="button"><spring:message code="navigation.log.in"/></a>
-                    </sec:authorize>
-                    <sec:authorize access="isAuthenticated()">
-                        <div class="dropdown navbar-left" style="margin-right: 10px">
-                            <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="<c:url value="/profile" />"><spring:message code="navigation.user.profile"/></a></li>
-                                <li class="divider"></li>
-                                <li><a href="<c:url value="/logout" />"><spring:message code="navigation.user.log.out"/></a></li>
-                            </ul>
-                        </div>
-                    </sec:authorize>
+                <sec:authorize access="!isAuthenticated()">
+                    <a class="btn btn-sm btn-success" href="<c:url value="/login" />" role="button"><spring:message code="navigation.log.in"/></a>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <div class="dropdown navbar-left" style="margin-right: 10px">
+                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="<c:url value="/profile" />"><spring:message code="navigation.user.profile"/></a></li>
+                            <li class="divider"></li>
+                            <li><a href="<c:url value="/logout" />"><spring:message code="navigation.user.log.out"/></a></li>
+                        </ul>
+                    </div>
+                </sec:authorize>
             </div>
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
@@ -124,39 +123,3 @@
 </nav>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,50 +2,64 @@ package com.bugtracker.controller;
 
 import com.bugtracker.dto.IssueDTO;
 import com.bugtracker.service.IssueService;
+import com.bugtracker.service.ProjectComponentService;
 import com.bugtracker.service.ProjectService;
+import com.bugtracker.service.ProjectVersionService;
+import com.bugtracker.validator.IssueDTOValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 @Controller
 public class IssueController {
 
-    @Resource
+    @Autowired
     private IssueService issueService;
 
-    @Resource
+    @Autowired
     private ProjectService projectService;
 
-    @RequestMapping(value = "/createIssue", method = RequestMethod.POST)
-    public ModelAndView createIssue(IssueDTO issueDTO, long[] components, long[] versions, String projectName) {
+    @Autowired
+    private IssueDTOValidator issueDTOValidator;
+
+    @InitBinder("issueDTO")
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(issueDTOValidator);
+    }
+
+    @RequestMapping(value = "/issues", method = RequestMethod.POST, params = {"create"})
+    public String createIssue(@Valid @ModelAttribute("issueDTO") IssueDTO issueDTO, BindingResult result,
+                              long[] components, long[] versions, String projectName) {
         issueService.addIssue(issueDTO, components, versions, projectName);
-        ModelAndView modelAndView = new ModelAndView();
-        return modelAndView;
+        return "redirect:/" + projectName + "/issues";
     }
 
-    @RequestMapping(value = "/{projectName}/issues")
-    public ModelAndView getProjectVersions(@PathVariable String projectName) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("projectIssues");
-        modelAndView.addObject("project", projectService.getByName(projectName));
-        modelAndView.addObject("issues", issueService.getIssues(projectName));
-        return modelAndView;
+    @RequestMapping(value = "{projectName}/issues", method = RequestMethod.GET)
+    public String getIssues(@PathVariable String projectName, Model model) {
+        model.addAttribute("project", projectService.getByName(projectName));
+        model.addAttribute("issues", projectService.getIssues(projectName));
+        return "user/issues";
     }
 
-
-    @RequestMapping(value = "/issue/{id}", method = RequestMethod.GET)
-    public ModelAndView getProject(@PathVariable long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("issue");
-        modelAndView.addObject("project", issueService.getProjectByIssueId(id));
-        modelAndView.addObject("issue", issueService.getById(id));
-        modelAndView.addObject("projectVersions", issueService.getProjectVersionsByIssueId(id));
-        modelAndView.addObject("projectComponents", issueService.getProjectComponentsByIssueId(id));
-        return modelAndView;
+    @RequestMapping(value = "{projectName}/issues/{id}", method = RequestMethod.GET)
+    public String getIssue(@PathVariable String projectName, @PathVariable long id, Model model) {
+        model.addAttribute("project", projectService.getByName(projectName));
+        model.addAttribute("issue", issueService.getById(id));
+        model.addAttribute("projectVersions", issueService.getProjectVersions(id));
+        model.addAttribute("projectComponents", issueService.getProjectComponents(id));
+        return "user/issue";
     }
 
+    @RequestMapping(value = "/{projectName}/issues/{id}", method = RequestMethod.POST, params = {"delete"})
+    public String deleteIssue(@PathVariable String projectName, @PathVariable long id) {
+        issueService.delete(id);
+        return "redirect:/{projectName}/issues";
+    }
 }

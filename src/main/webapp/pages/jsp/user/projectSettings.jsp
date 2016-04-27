@@ -11,21 +11,21 @@
     </script>
 </head>
 <body>
-<jsp:include page='navigation.jsp' />
-<jsp:include page='deleteProjectForm.jsp'/>
+<jsp:include page='../../jspf/navigation.jsp' />
+<jsp:include page='../../jspf/deleteProjectForm.jsp'/>
 <div class="row" style="margin-right: 0; margin-top: 0; padding-top: -20px; height: 100%">
 
-    <jsp:include page='projectMenu.jsp'/>
+    <jsp:include page='../../jspf/projectMenu.jsp'/>
 
     <div class="col-lg-9" style="margin-left: 1%; margin-top: 1%">
 
-        <span><a href="#">Team name </a>/<a href="/project/${project.name}"> ${project.name}</a></span>
+        <span><a href="#">Team name </a>/<a href="/${project.name}"> ${project.name}</a></span>
 
 
         <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#deleteProject" style="background-color: #eeeeee"><spring:message code="project.delete.project"/></button>
 
         <h2><spring:message code="project.project.settings"/></h2>
-        <form class="form-horizontal" style="width: 70%" enctype="multipart/form-data" action = "/editProject/${project.name}" method = "post" commandName = "project">
+        <form class="form-horizontal" style="width: 70%" enctype="multipart/form-data" action = "/${project.name}?edit" method = "post" commandName = "project">
             <div class = "form-group">
                 <label class="col-lg-3 control-label"><spring:message code ="add.project.team"/></label>
                 <div class="col-lg-6">

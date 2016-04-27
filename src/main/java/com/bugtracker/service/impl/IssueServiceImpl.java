@@ -2,7 +2,6 @@ package com.bugtracker.service.impl;
 
 import com.bugtracker.dto.IssueDTO;
 import com.bugtracker.dto.ProjectComponentDTO;
-import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.dto.ProjectVersionDTO;
 import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.Project;
@@ -11,7 +10,6 @@ import com.bugtracker.entity.ProjectVersion;
 import com.bugtracker.entity.enums.IssueStatusEnum;
 import com.bugtracker.mapper.IssueMapper;
 import com.bugtracker.mapper.ProjectComponentMapper;
-import com.bugtracker.mapper.ProjectMapper;
 import com.bugtracker.mapper.ProjectVersionMapper;
 import com.bugtracker.repository.ProjectComponentRepository;
 import com.bugtracker.repository.ProjectRepository;
@@ -20,13 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.IssueRepository;
 import com.bugtracker.service.IssueService;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Set;
 
 @Service
-@Transactional
 public class IssueServiceImpl implements IssueService {
 
     @Autowired
@@ -42,17 +38,13 @@ public class IssueServiceImpl implements IssueService {
     private ProjectVersionRepository projectVersionRepository;
 
     @Autowired
+    private IssueMapper issueMapper;
+
+    @Autowired
     private ProjectComponentMapper projectComponentMapper;
 
     @Autowired
     private ProjectVersionMapper projectVersionMapper;
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private IssueMapper issueMapper;
-
 
     @Override
     public IssueDTO addIssue(IssueDTO issueDTO, long[] components, long[] versions, String projectName) {
@@ -99,28 +91,17 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public ProjectDTO getProjectByIssueId(long id) {
-        return projectMapper.projectToProjectDTO(issueRepository.getById(id).getProject());
-    }
-
-    @Override
-    public Set<ProjectComponentDTO> getProjectComponentsByIssueId(long id) {
-        return projectComponentMapper.projectComponentsToProjectComponentDTOs(issueRepository.getById(id).getComponents());
-    }
-
-    @Override
-    public Set<ProjectVersionDTO> getProjectVersionsByIssueId(long id) {
-        return projectVersionMapper.projectVersionsToProjectVersionDTOs(issueRepository.getById(id).getVersions());
-    }
-
-    @Override
     public IssueDTO editIssue(IssueDTO issueDTO) {
         return issueMapper.issueToIssueDTO(issueRepository.saveAndFlush(issueMapper.issueDTOToIssue(issueDTO)));
     }
 
     @Override
-    public Set<IssueDTO> getIssues(String projectName) {
-        return issueMapper.issuesToIssueDTOs(projectRepository.findByName(projectName).getIssues());
+    public Set<ProjectComponentDTO> getProjectComponents(long id) {
+        return projectComponentMapper.projectComponentsToProjectComponentDTOs(issueRepository.getById(id).getComponents());
     }
 
+    @Override
+    public Set<ProjectVersionDTO> getProjectVersions(long id) {
+        return projectVersionMapper.projectVersionsToProjectVersionDTOs(issueRepository.getById(id).getVersions());
+    }
 }

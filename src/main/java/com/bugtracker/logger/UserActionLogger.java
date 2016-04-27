@@ -1,8 +1,5 @@
 package com.bugtracker.logger;
 
-/**
- * Created by Vlados on 4/21/2016.
- */
 public interface UserActionLogger {
     void projectAdded(String username, String projectName);
     void projectEdited(String username, String projectName);

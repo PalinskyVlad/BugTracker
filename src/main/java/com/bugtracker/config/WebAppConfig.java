@@ -23,10 +23,6 @@ import javax.servlet.MultipartConfigElement;
 import java.util.Locale;
 import java.util.Properties;
 
-
-/**
- * Created by Vlados on 17.03.2016.
- */
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.bugtracker")
@@ -45,7 +41,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
     @Bean
     public InternalResourceViewResolver setupViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/pages/");
+        resolver.setPrefix("/pages/jsp/");
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
 

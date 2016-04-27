@@ -1,18 +1,17 @@
 package com.bugtracker.controller;
 
-import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.dto.ProjectVersionDTO;
-import com.bugtracker.logger.UserActionLogger;
 import com.bugtracker.service.ProjectService;
 import com.bugtracker.service.ProjectVersionService;
+import com.bugtracker.validator.ProjectVersionDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import javax.validation.Valid;
 
 @Controller
 public class ProjectVersionController {
@@ -24,41 +23,38 @@ public class ProjectVersionController {
     private ProjectService projectService;
 
     @Autowired
-    private UserActionLogger logger;
+    private ProjectVersionDTOValidator projectVersionDTOValidator;
 
-    @RequestMapping(value = "/{projectName}/addProjectVersion")
-    public ModelAndView addProjectVersion(@PathVariable String projectName, ProjectVersionDTO projectVersionDTO, Principal principal){
-        ProjectDTO projectDTO = projectService.getByName(projectName);
-        projectVersionService.addProjectVersion(projectDTO, projectVersionDTO);
-        logger.projectVersionAdded(principal.getName(), projectDTO.getName(), projectVersionDTO.getName() );
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("project");
-        modelAndView.addObject("project", projectDTO);
-        return modelAndView;
+    @InitBinder("projectVersionDTO")
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(projectVersionDTOValidator);
     }
 
-    @RequestMapping(value = "/{projectName}/projectVersions")
-    public ModelAndView getProjectVersions(@PathVariable String projectName) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("projectVersions");
-        modelAndView.addObject("project", projectService.getByName(projectName));
-        modelAndView.addObject("projectVersions", projectVersionService.getProjectVersions(projectName));
-        return modelAndView;
+    @RequestMapping(value = "/{projectName}/versions", method = RequestMethod.POST, params = {"create"})
+    public String addProjectVersion(@Valid @ModelAttribute("projectVersionDTO") ProjectVersionDTO projectVersionDTO, BindingResult result,
+                                    @PathVariable String projectName, Model model){
+        projectVersionService.addProjectVersion(projectName, projectVersionDTO);
+        return "redirect:/{projectName}/versions";
     }
 
-    @RequestMapping(value = "/projectVersion/{id}", method = RequestMethod.GET)
-    public ModelAndView getProject(@PathVariable long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("projectVersion");
-        modelAndView.addObject("project", projectVersionService.getProjectByProjectVersionId(id));
-        modelAndView.addObject("projectVersion", projectVersionService.getById(id));
-        modelAndView.addObject("issues", projectVersionService.getIssues(id));
-        return modelAndView;
+    @RequestMapping(value = "/{projectName}/versions", method = RequestMethod.GET)
+    public String getProjectVersions(@PathVariable String projectName, Model model) {
+        model.addAttribute("project", projectService.getByName(projectName));
+        model.addAttribute("projectVersions", projectService.getProjectVersions(projectName));
+        return "user/projectVersions";
     }
 
-    @RequestMapping(value = "/deleteProjectVersion/{id}")
-    public String deleteProject(@PathVariable long id) {
+    @RequestMapping(value = "{projectName}/versions/{id}", method = RequestMethod.GET)
+    public String getProject(@PathVariable String projectName, @PathVariable long id, Model model) {
+        model.addAttribute("project", projectService.getByName(projectName));
+        model.addAttribute("projectVersion", projectVersionService.getById(id));
+        model.addAttribute("issues", projectVersionService.getIssues(id));
+        return "user/projectVersion";
+    }
+
+    @RequestMapping(value = "/{projectName}/versions/{id}", method = RequestMethod.POST, params = {"delete"})
+    public String deleteProject(@PathVariable String projectName, @PathVariable long id) {
         projectVersionService.delete(id);
-        return "projectVersions";
+        return "redirect:/{projectName}/versions";
     }
 }

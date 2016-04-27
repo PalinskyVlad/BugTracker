@@ -1,12 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Vlados
-  Date: 4/12/2016
-  Time: 11:39 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -46,23 +39,23 @@
             </li>
             <li>
                 <a href="/${project.name}/issues" class="menu-item">
-                    <span class="glyphicon glyphicon-info-sign" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.issues"/></span>
+                    <span class="glyphicon glyphicon-info-sign" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.issues"/>
                 </a>
             </li>
             <li>
-                <a href="/${project.name}/projectVersions" class="menu-item">
-                    <span class="glyphicon glyphicon-sort" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.versions"/></span>
+                <a href="/${project.name}/versions" class="menu-item">
+                    <span class="glyphicon glyphicon-sort" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.versions"/>
                 </a>
             </li>
             <li>
-                <a href="/${project.name}/projectComponents" class="menu-item">
-                    <span class="glyphicon glyphicon-book" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.components"/></span>
+                <a href="/${project.name}/components" class="menu-item">
+                    <span class="glyphicon glyphicon-book" style="color: #707070; padding-right: 3%;"></span> <spring:message code="project.components"/>
                 </a>
             </li>
             <hr style="width: 95%">
 
             <li>
-                <a href="/project/${project.name}/settings" class="menu-item">
+                <a href="/${project.name}/settings" class="menu-item">
                     <span class="glyphicon glyphicon-cog" style="color: #707070; padding-right: 3%;"></span>  <spring:message code="project.settings"/>
                 </a>
             </li>

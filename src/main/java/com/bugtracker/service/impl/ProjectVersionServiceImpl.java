@@ -8,6 +8,7 @@ import com.bugtracker.entity.ProjectVersion;
 import com.bugtracker.mapper.IssueMapper;
 import com.bugtracker.mapper.ProjectMapper;
 import com.bugtracker.mapper.ProjectVersionMapper;
+import com.bugtracker.repository.IssueRepository;
 import com.bugtracker.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Service
-@Transactional
 public class ProjectVersionServiceImpl implements ProjectVersionService {
+
+    @Autowired
+    private IssueRepository issueRepository;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -37,14 +40,13 @@ public class ProjectVersionServiceImpl implements ProjectVersionService {
     private ProjectMapper projectMapper;
 
     @Override
-    public ProjectVersionDTO addProjectVersion(ProjectDTO projectDTO, ProjectVersionDTO projectVersionDTO) {
+    public ProjectVersionDTO addProjectVersion(String projectName, ProjectVersionDTO projectVersionDTO) {
 
         ProjectVersion projectVersion = versionMapper.projectVersionDTOToProjectVersion(projectVersionDTO);
 
-        Project project = projectMapper.projectDTOToProject(projectDTO);
+        Project project = projectRepository.findByName(projectName);
 
         projectVersion.setProject(project);
-
 
         project.getVersions().add(projectVersion);
 
@@ -69,11 +71,6 @@ public class ProjectVersionServiceImpl implements ProjectVersionService {
     @Override
     public ProjectVersionDTO getById(long id) {
         return versionMapper.projectVersionToProjectVersionDTO(projectVersionRepository.getById(id));
-    }
-
-    @Override
-    public Set<ProjectVersionDTO> getProjectVersions(String projectName) {
-        return versionMapper.projectVersionsToProjectVersionDTOs(projectRepository.findByName(projectName).getVersions());
     }
 
     @Override

@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <!DOCTYPE html>
@@ -19,7 +18,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 </head>
 <body>
-<jsp:include page='navigation.jsp' />
+<jsp:include page='../jspf/navigation.jsp' />
     <div class = "container" style="margin-top: 2%">
     <div class="jumbotron" style="width: 50%; margin: auto">
 

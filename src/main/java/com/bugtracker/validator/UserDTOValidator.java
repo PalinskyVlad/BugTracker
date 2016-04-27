@@ -11,6 +11,20 @@ import org.springframework.validation.Validator;
 @Component
 public class UserDTOValidator implements Validator {
 
+    private static final String PASSWORD = "password";
+    private static final String FIRST_NAME = "firstName";
+    private static final String LAST_NAME = "lastName";
+    private static final String EMAIL = "email";
+    private static final String USERNAME = "username";
+
+    private static final String ERROR_CODE_REQUIRED_PASSWORD = "required.password";
+    private static final String ERROR_CODE_REQUIRED_FIRST_NAME = "required.firstName";
+    private static final String ERROR_CODE_REQUIRED_LAST_NAME = "required.lastName";
+    private static final String ERROR_CODE_REQUIRED_EMAIL = "required.email";
+    private static final String ERROR_CODE_REGISTERED_EMAIL = "registered.email";
+    private static final String ERROR_CODE_REQUIRED_USERNAME = "required.username";
+    private static final String ERROR_CODE_REGISTERED_USERNAME = "registered.username";
+
     @Autowired
     private UserService userService;
 
@@ -23,22 +37,22 @@ public class UserDTOValidator implements Validator {
     public void validate(Object target, Errors errors) {
 
         UserDTO userDTO = (UserDTO) target;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
-                "required.password");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName",
-                "required.firstName");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName",
-                "required.lastName");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email",
-                "required.email");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username",
-                "required.username");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, PASSWORD,
+                ERROR_CODE_REQUIRED_PASSWORD);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, FIRST_NAME,
+                ERROR_CODE_REQUIRED_FIRST_NAME);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, LAST_NAME,
+                ERROR_CODE_REQUIRED_LAST_NAME);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, EMAIL,
+                ERROR_CODE_REQUIRED_EMAIL);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, USERNAME,
+                ERROR_CODE_REQUIRED_USERNAME);
 
         if (userService.checkEmail(userDTO.getEmail())) {
-            errors.rejectValue("email", "registered.email");
+            errors.rejectValue(EMAIL, ERROR_CODE_REGISTERED_EMAIL);
         }
         if (userService.checkUsername(userDTO.getUsername())) {
-            errors.rejectValue("username", "registered.username");
+            errors.rejectValue(USERNAME, ERROR_CODE_REGISTERED_USERNAME);
         }
     }
 }
