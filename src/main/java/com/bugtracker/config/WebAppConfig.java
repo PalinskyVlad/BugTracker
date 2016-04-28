@@ -1,6 +1,5 @@
 package com.bugtracker.config;
 
-import com.bugtracker.service.impl.UserDetailsServiceImpl;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -84,10 +83,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-
-    @Bean
-    public UserDetailsService getUserDetailsService() {return new UserDetailsServiceImpl();
-    }
 
     @Bean(name = "mailSender")
     public JavaMailSenderImpl getJavaMailSender() {

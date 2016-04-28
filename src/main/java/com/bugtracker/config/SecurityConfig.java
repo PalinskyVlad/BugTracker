@@ -1,6 +1,5 @@
 package com.bugtracker.config;
 
-import com.bugtracker.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -17,7 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -29,7 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/**").permitAll()
+                .antMatchers("/*").permitAll()
+                .antMatchers("/user/**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and();
         http.formLogin()

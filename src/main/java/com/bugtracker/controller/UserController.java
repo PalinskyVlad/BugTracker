@@ -34,6 +34,19 @@ public class UserController {
         binder.setValidator(userDTOValidator);
     }
 
+    @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "admin/administration";
+    }
+
+    @RequestMapping(value = "/admin/users/{id}", method = RequestMethod.GET, params = {"delete"})
+    public String deleteUser(@PathVariable long id) {
+        userService.delete(id);
+        return "redirect:/admin/users";
+    }
+
+
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String displaySignUpForm() {
         return "signUp";
@@ -63,8 +76,8 @@ public class UserController {
         return "user/profile";
     }
 
-    @RequestMapping(value = "/confirm", params= {"secretCode"})
-    public String confirm(String secretCode) {
+    @RequestMapping(value = "/confirm/{secretCode}", method = RequestMethod.POST)
+    public String confirm(@PathVariable String secretCode) {
         if (userService.confirmSecretCode(secretCode)) {
             return "confirmed";
         } else {

@@ -15,7 +15,7 @@ public class UserDTOUtil {
         userDTO.setLastName("Palinsky");
         userDTO.setUsername("username");
         userDTO.setPassword("password");
-        userDTO.setRole(UserRoleEnum.ADMIN);
+        userDTO.setRole(UserRoleEnum.ROLE_ADMIN);
 
         return userDTO;
     }

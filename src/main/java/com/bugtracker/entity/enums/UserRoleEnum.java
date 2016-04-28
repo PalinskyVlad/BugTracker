@@ -2,9 +2,8 @@ package com.bugtracker.entity.enums;
 
 public enum UserRoleEnum {
 
-    ANONYMOUS,
-    USER,
-    ADMIN;
+    ROLE_USER,
+    ROLE_ADMIN;
 
     UserRoleEnum() {
 

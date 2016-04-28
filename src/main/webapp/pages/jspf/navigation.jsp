@@ -1,7 +1,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib prefix="sping" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 
 <html>
 <head>
@@ -90,9 +91,9 @@
                     <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><spring:message code="language"/>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="<c:url value='?lang=de'/>">Deutsch</a></li>
-                        <li><a href="<c:url value='?lang=en'/>">English</a></li>
-                        <li><a href="<c:url value='?lang=ru'/>">Русский</a></li>
+                        <li><a href="<c:url value='?lang=de'/>"><spring:message code ="lang.de"/></a></li>
+                        <li><a href="<c:url value='?lang=en'/>"><spring:message code ="lang.en"/></a></li>
+                        <li><a href="<c:url value='?lang=ru'/>"><spring:message code ="lang.ru"/></a></li>
                     </ul>
                 </div>
 
@@ -105,6 +106,11 @@
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         </button>
                         <ul class="dropdown-menu">
+                            <li>
+                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                    <a href="<c:url value="/admin/users"/>"><spring:message code="administration"/></a>
+                                </sec:authorize>
+                            </li>
                             <li><a href="<c:url value="/profile" />"><spring:message code="navigation.user.profile"/></a></li>
                             <li class="divider"></li>
                             <li><a href="<c:url value="/logout" />"><spring:message code="navigation.user.log.out"/></a></li>
