@@ -38,6 +38,9 @@ public class ProjectComponentController {
     @RequestMapping(value = "/{projectName}/components", method = RequestMethod.POST, params = {"create"})
     public String createProjectComponent(@Valid @ModelAttribute("projectComponentDTO") ProjectComponentDTO projectComponentDTO, BindingResult result,
                                          @PathVariable String projectName, Model model){
+        if (result.hasErrors()) {
+            return "redirect:/";
+        }
         projectComponentService.addProjectComponent(projectName, projectComponentDTO);
         return "redirect:/{projectName}/components";
     }

@@ -33,6 +33,9 @@ public class ProjectVersionController {
     @RequestMapping(value = "/{projectName}/versions", method = RequestMethod.POST, params = {"create"})
     public String addProjectVersion(@Valid @ModelAttribute("projectVersionDTO") ProjectVersionDTO projectVersionDTO, BindingResult result,
                                     @PathVariable String projectName, Model model){
+        if (result.hasErrors()) {
+            return "redirect:/";
+        }
         projectVersionService.addProjectVersion(projectName, projectVersionDTO);
         return "redirect:/{projectName}/versions";
     }

@@ -38,6 +38,9 @@ public class IssueController {
     @RequestMapping(value = "/issues", method = RequestMethod.POST, params = {"create"})
     public String createIssue(@Valid @ModelAttribute("issueDTO") IssueDTO issueDTO, BindingResult result,
                               long[] componentIndexes, long[] versionIndexes, String projectName) {
+        if (result.hasErrors()) {
+            return "redirect:/";
+        }
         issueService.addIssue(issueDTO, componentIndexes, versionIndexes, projectName);
         return "redirect:/" + projectName + "/issues";
     }

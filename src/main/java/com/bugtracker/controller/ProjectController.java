@@ -54,6 +54,9 @@ public class ProjectController {
                               @RequestParam("image") MultipartFile  image,
                               @Valid @ModelAttribute("projectDTO") ProjectDTO projectDTO, BindingResult result,
                               Model model) {
+        if (result.hasErrors()) {
+            return "redirect:/";
+        }
         projectService.editProject(image, projectName, projectDTO);
         model.addAttribute("project", projectDTO);
         return "redirect:/{projectName}";
