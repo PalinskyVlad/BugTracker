@@ -24,8 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(getShaPasswordEncoder());
     }
 
-    
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
@@ -47,7 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .invalidateHttpSession(true);
     }
-
 
     @Bean
     public ShaPasswordEncoder getShaPasswordEncoder() {

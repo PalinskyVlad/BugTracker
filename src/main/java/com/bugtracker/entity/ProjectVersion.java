@@ -22,7 +22,7 @@ public class ProjectVersion {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "versions")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "versions")
     private Set<Issue> issues = new HashSet<Issue>();
 
     public ProjectVersion() {

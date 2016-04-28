@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 public interface ProjectComponentRepository extends JpaRepository<ProjectComponent, Long> {
 
     @Query("select p from ProjectComponent p where p.name =:name")
-    ProjectComponent getByName(@Param("name") String name);
+    ProjectComponent findByName(@Param("name") String name);
 
     @Query("select p from ProjectComponent p where p.id =:id")
-    ProjectComponent getById(@Param("id") long id);
+    ProjectComponent findById(@Param("id") long id);
 }

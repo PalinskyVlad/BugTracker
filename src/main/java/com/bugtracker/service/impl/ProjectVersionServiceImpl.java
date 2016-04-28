@@ -59,28 +59,13 @@ public class ProjectVersionServiceImpl implements ProjectVersionService {
     }
 
     @Override
-    public void delete(long id) {
-        projectVersionRepository.delete(id);
-    }
-
-    @Override
     public ProjectVersionDTO getByName(String name) {
-        return versionMapper.projectVersionToProjectVersionDTO(projectVersionRepository.getByName(name));
+        return versionMapper.projectVersionToProjectVersionDTO(projectVersionRepository.findByName(name));
     }
 
     @Override
     public ProjectVersionDTO getById(long id) {
-        return versionMapper.projectVersionToProjectVersionDTO(projectVersionRepository.getById(id));
-    }
-
-    @Override
-    public Set<IssueDTO> getIssues(long id) {
-        return issueMapper.issuesToIssueDTOs(projectVersionRepository.getById(id).getIssues());
-    }
-
-    @Override
-    public ProjectDTO getProjectByProjectVersionId(long id) {
-        return projectMapper.projectToProjectDTO(projectVersionRepository.getById(id).getProject());
+        return versionMapper.projectVersionToProjectVersionDTO(projectVersionRepository.findById(id));
     }
 
     @Override
@@ -88,4 +73,18 @@ public class ProjectVersionServiceImpl implements ProjectVersionService {
         return versionMapper.projectVersionToProjectVersionDTO(projectVersionRepository.saveAndFlush(versionMapper.projectVersionDTOToProjectVersion(projectVersionDTO)));
     }
 
+    @Override
+    public void delete(long id) {
+        projectVersionRepository.delete(id);
+    }
+
+    @Override
+    public Set<IssueDTO> getIssues(long id) {
+        return issueMapper.issuesToIssueDTOs(projectVersionRepository.findById(id).getIssues());
+    }
+
+    @Override
+    public ProjectDTO getProject(long id) {
+        return projectMapper.projectToProjectDTO(projectVersionRepository.findById(id).getProject());
+    }
 }

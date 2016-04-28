@@ -5,6 +5,7 @@ import com.bugtracker.entity.User;
 import com.bugtracker.entity.enums.UserRoleEnum;
 import com.bugtracker.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bugtracker.repository.UserRepository;
 import com.bugtracker.service.UserService;
@@ -12,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private ShaPasswordEncoder shaPasswordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -22,15 +26,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO addUser(UserDTO userDTO) {
         userDTO.setRole(UserRoleEnum.USER);
-        userDTO.setPassword(User.SHA_PASSWORD_ENCODER.encodePassword(userDTO.getPassword(), null));
+        userDTO.setPassword(shaPasswordEncoder.encodePassword(userDTO.getPassword(), null));
         UserDTO savedUser = mapper.userToUserDTO(userRepository.saveAndFlush(mapper.userDTOToUser(userDTO)));
 
         return savedUser;
-    }
-
-    @Override
-    public void delete(long id) {
-        userRepository.delete(id);
     }
 
     @Override
@@ -39,13 +38,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getByEmail(String email) {
-        return mapper.userToUserDTO(userRepository.findByEmail(email));
+    public UserDTO editUser(UserDTO userDTO) {
+        return mapper.userToUserDTO(userRepository.saveAndFlush(mapper.userDTOToUser(userDTO)));
     }
 
     @Override
-    public UserDTO editUser(UserDTO userDTO) {
-        return mapper.userToUserDTO(userRepository.saveAndFlush(mapper.userDTOToUser(userDTO)));
+    public void delete(long id) {
+        userRepository.delete(id);
     }
 
     @Override

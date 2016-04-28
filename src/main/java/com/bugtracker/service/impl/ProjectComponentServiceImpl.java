@@ -31,12 +31,16 @@ public class ProjectComponentServiceImpl implements ProjectComponentService{
     private IssueMapper issueMapper;
 
     @Autowired
-    private ProjectComponentMapper componentMapper;
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private ProjectComponentMapper projectComponentMapper;
+
 
     @Override
     public ProjectComponentDTO addProjectComponent(String projectName, ProjectComponentDTO projectComponentDTO) {
 
-        ProjectComponent projectComponent = componentMapper.projectComponentDTOToProjectComponent(projectComponentDTO);
+        ProjectComponent projectComponent = projectComponentMapper.projectComponentDTOToProjectComponent(projectComponentDTO);
 
         Project project =  projectRepository.findByName(projectName);
 
@@ -45,10 +49,26 @@ public class ProjectComponentServiceImpl implements ProjectComponentService{
 
         project.getComponents().add(projectComponent);
 
-        ProjectComponentDTO savedProjectComponent = componentMapper.projectComponentToProjectComponentDTO(projectComponentRepository
+        ProjectComponentDTO savedProjectComponent = projectComponentMapper.projectComponentToProjectComponentDTO(projectComponentRepository
                                              .saveAndFlush(projectComponent));
 
         return savedProjectComponent;
+    }
+
+    @Override
+    public ProjectComponentDTO getByName(String name) {
+        return projectComponentMapper.projectComponentToProjectComponentDTO(projectComponentRepository.findByName(name));
+    }
+
+    @Override
+    public ProjectComponentDTO getById(long id) {
+        return projectComponentMapper.projectComponentToProjectComponentDTO(projectComponentRepository.findById(id));
+    }
+
+    @Override
+    public ProjectComponentDTO editProjectComponent(ProjectComponentDTO projectComponentDTO) {
+        return projectComponentMapper.projectComponentToProjectComponentDTO(projectComponentRepository
+                .saveAndFlush(projectComponentMapper.projectComponentDTOToProjectComponent(projectComponentDTO)));
     }
 
     @Override
@@ -57,24 +77,12 @@ public class ProjectComponentServiceImpl implements ProjectComponentService{
     }
 
     @Override
-    public ProjectComponentDTO getByName(String name) {
-        return componentMapper.projectComponentToProjectComponentDTO(projectComponentRepository.getByName(name));
-    }
-
-    @Override
-    public ProjectComponentDTO getById(long id) {
-        return componentMapper.projectComponentToProjectComponentDTO(projectComponentRepository.getById(id));
-    }
-
-    @Override
     public Set<IssueDTO> getIssues(long id) {
-        return issueMapper.issuesToIssueDTOs(projectComponentRepository.getById(id).getIssues());
+        return issueMapper.issuesToIssueDTOs(projectComponentRepository.findById(id).getIssues());
     }
 
     @Override
-    public ProjectComponentDTO editProjectComponent(ProjectComponentDTO projectComponentDTO) {
-        return componentMapper.projectComponentToProjectComponentDTO(projectComponentRepository
-                .saveAndFlush(componentMapper.projectComponentDTOToProjectComponent(projectComponentDTO)));
+    public ProjectDTO getProject(long id) {
+        return projectMapper.projectToProjectDTO(projectComponentRepository.findById(id).getProject());
     }
-
 }

@@ -15,36 +15,27 @@ import java.util.Set;
 public class IssueDTO {
     private long id;
     private String name;
-    private ProjectDTO projectDTO;
     private IssueTypeEnum issueType;
     private String summary;
     private IssuePriorityEnum priority;
-    private Set<ProjectComponentDTO> componentDTOs = new HashSet<ProjectComponentDTO>();
-    private Set<ProjectVersionDTO> versionDTOs = new HashSet<ProjectVersionDTO>();
     private IssueStatusEnum status;
     private String environment;
     private String description;
-    private Set<UserDTO> userDTOs = new HashSet<UserDTO>();
     private Date createdDate;
     private Date updatedDate;
     private Date resolvedDate;
 
-    public IssueDTO(long id, String name, ProjectDTO projectDTO, IssueTypeEnum issueType, String summary
-                    , IssuePriorityEnum priority, Set<ProjectComponentDTO> componentDTOs, Set<ProjectVersionDTO> versionDTOs
-                    , IssueStatusEnum status, String environment, String description, Set<UserDTO> userDTOs, Date createdDate
-                    , Date updatedDate, Date resolvedDate) {
+    public IssueDTO(long id, String name, IssueTypeEnum issueType, String summary
+                    , IssuePriorityEnum priority, IssueStatusEnum status, String environment, String description
+                    , Date createdDate, Date updatedDate, Date resolvedDate) {
         this.id = id;
         this.name = name;
-        this.projectDTO = projectDTO;
         this.issueType = issueType;
         this.summary = summary;
         this.priority = priority;
-        this.componentDTOs = componentDTOs;
-        this.versionDTOs = versionDTOs;
         this.status = status;
         this.environment = environment;
         this.description = description;
-        this.userDTOs = userDTOs;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.resolvedDate = resolvedDate;
@@ -68,14 +59,6 @@ public class IssueDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ProjectDTO getProjectDTO() {
-        return projectDTO;
-    }
-
-    public void setProjectDTO(ProjectDTO projectDTO) {
-        this.projectDTO = projectDTO;
     }
 
     public IssueTypeEnum getIssueType() {
@@ -102,22 +85,6 @@ public class IssueDTO {
         this.priority = priority;
     }
 
-    public Set<ProjectComponentDTO> getComponentDTOs() {
-        return componentDTOs;
-    }
-
-    public void setComponentDTOs(Set<ProjectComponentDTO> componentDTOs) {
-        this.componentDTOs = componentDTOs;
-    }
-
-    public Set<ProjectVersionDTO> getVersionDTOs() {
-        return versionDTOs;
-    }
-
-    public void setVersionDTOs(Set<ProjectVersionDTO> versionDTOs) {
-        this.versionDTOs = versionDTOs;
-    }
-
     public IssueStatusEnum getStatus() {
         return status;
     }
@@ -140,14 +107,6 @@ public class IssueDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<UserDTO> getUserDTOs() {
-        return userDTOs;
-    }
-
-    public void setUserDTOs(Set<UserDTO> userDTOs) {
-        this.userDTOs = userDTOs;
     }
 
     public Date getCreatedDate() {

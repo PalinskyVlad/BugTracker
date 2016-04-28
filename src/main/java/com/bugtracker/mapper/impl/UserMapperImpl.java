@@ -1,29 +1,26 @@
 package com.bugtracker.mapper.impl;
 
+import com.bugtracker.dto.IssueDTO;
 import com.bugtracker.dto.UserDTO;
+import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.User;
 import com.bugtracker.mapper.UserMapper;
+import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class UserMapperImpl implements UserMapper {
+public class UserMapperImpl extends CustomMapper<UserDTO, User> implements UserMapper {
 
-    private final static MapperFacade mapper;
-
-    static
-    {
-        final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-        mapperFactory.classMap(User.class, UserDTO.class)
-                .byDefault()
-                .register();
-        mapper = mapperFactory.getMapperFacade();
-    }
+    @Autowired
+    private MapperFacade mapper;
 
     @Override
     public UserDTO userToUserDTO(User user) {
@@ -63,5 +60,31 @@ public class UserMapperImpl implements UserMapper {
         }
 
         return users;
+    }
+
+    @Override
+    public void mapAtoB(UserDTO a, User b, MappingContext context) {
+        b.setId(a.getId());
+        b.setUsername(a.getUsername());
+        b.setEmail(a.getEmail());
+        b.setPassword(a.getPassword());
+        b.setFirstName(a.getFirstName());
+        b.setLastName(a.getLastName());
+        b.setRole(a.getRole());
+        b.setSecretCode(a.getSecretCode());
+        b.setConfirmed(a.isConfirmed());
+    }
+
+    @Override
+    public void mapBtoA(User b, UserDTO a, MappingContext context) {
+        a.setId(b.getId());
+        a.setUsername(b.getUsername());
+        a.setEmail(b.getEmail());
+        a.setPassword(b.getPassword());
+        a.setFirstName(b.getFirstName());
+        a.setLastName(b.getLastName());
+        a.setRole(b.getRole());
+        a.setSecretCode(b.getSecretCode());
+        a.setConfirmed(b.isConfirmed());
     }
 }

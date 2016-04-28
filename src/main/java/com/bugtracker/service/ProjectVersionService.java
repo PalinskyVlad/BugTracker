@@ -9,11 +9,11 @@ import java.util.Set;
 public interface ProjectVersionService {
 
     ProjectVersionDTO addProjectVersion(String projectName, ProjectVersionDTO projectVersionDTO);
-    void delete(long id);
     ProjectVersionDTO getByName(String name);
     ProjectVersionDTO getById(long id);
-    Set<IssueDTO> getIssues(long id);
-    ProjectDTO getProjectByProjectVersionId(long id);
     ProjectVersionDTO editProjectVersion(ProjectVersionDTO projectVersionDTO);
+    void delete(long id);
 
+    Set<IssueDTO> getIssues(long id);
+    ProjectDTO getProject(long id);
 }

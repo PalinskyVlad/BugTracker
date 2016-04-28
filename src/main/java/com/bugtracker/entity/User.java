@@ -1,6 +1,7 @@
 package com.bugtracker.entity;
 
 import com.bugtracker.entity.enums.UserRoleEnum;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 import javax.persistence.*;
@@ -11,6 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
+
+    @Autowired
 
     public static final ShaPasswordEncoder SHA_PASSWORD_ENCODER = new ShaPasswordEncoder(512);
 

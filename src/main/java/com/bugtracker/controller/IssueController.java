@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class IssueController {
@@ -36,8 +37,8 @@ public class IssueController {
 
     @RequestMapping(value = "/issues", method = RequestMethod.POST, params = {"create"})
     public String createIssue(@Valid @ModelAttribute("issueDTO") IssueDTO issueDTO, BindingResult result,
-                              long[] components, long[] versions, String projectName) {
-        issueService.addIssue(issueDTO, components, versions, projectName);
+                              long[] componentIndexes, long[] versionIndexes, String projectName) {
+        issueService.addIssue(issueDTO, componentIndexes, versionIndexes, projectName);
         return "redirect:/" + projectName + "/issues";
     }
 

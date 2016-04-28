@@ -4,6 +4,7 @@ import com.bugtracker.dto.IssueDTO;
 import com.bugtracker.dto.ProjectComponentDTO;
 import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.dto.ProjectVersionDTO;
+import com.bugtracker.entity.Project;
 import com.bugtracker.entity.ProjectComponent;
 import com.bugtracker.entity.ProjectVersion;
 import com.bugtracker.mapper.IssueMapper;
@@ -48,27 +49,15 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDTO addProject(MultipartFile image, ProjectDTO projectDTO) {
+        Project project = mapper.projectDTOToProject(projectDTO);
         try {
-            if (image != null) {
-                projectDTO.setAvatar(image.getBytes());
-            }
+            project.setAvatar(image.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ProjectDTO savedProject = mapper.projectToProjectDTO(projectRepository.saveAndFlush(mapper.projectDTOToProject(projectDTO)));
+        ProjectDTO savedProject = mapper.projectToProjectDTO(projectRepository.saveAndFlush(project));
 
         return savedProject;
-    }
-
-
-    @Override
-    public void delete(long id) {
-        projectRepository.delete(id);
-    }
-
-    @Override
-    public void delete(String name) {
-        projectRepository.delete(projectRepository.findByName(name).getId());
     }
 
     @Override
@@ -82,34 +71,24 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO getByIssueId(long id) {
-        return mapper.projectToProjectDTO(issueRepository.getById(id).getProject());
-    }
-
-
-    @Override
-    public ProjectDTO getByProjectComponentId(long id) {
-        return mapper.projectToProjectDTO(projectComponentRepository.getById(id).getProject());
-    }
-
-
-    @Override
     public ProjectDTO editProject(MultipartFile image, String name, ProjectDTO editedProjectDTO) {
-
-        ProjectDTO projectDTO = getByName(name);
-        projectDTO.setName(editedProjectDTO.getName());
-        projectDTO.setDescription(editedProjectDTO.getDescription());
-        projectDTO.setPrivacy(editedProjectDTO.isPrivacy());
+        Project project = projectRepository.findByName(name);
+        project.setName(editedProjectDTO.getName());
+        project.setDescription(editedProjectDTO.getDescription());
+        project.setPrivacy(editedProjectDTO.isPrivacy());
 
         try {
-            if (image.getBytes().length != 0) {
-                projectDTO.setAvatar(image.getBytes());
-            }
+            project.setAvatar(image.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return mapper.projectToProjectDTO(projectRepository.saveAndFlush(mapper.projectDTOToProject(projectDTO)));
+        return mapper.projectToProjectDTO(projectRepository.saveAndFlush(project));
+    }
+
+    @Override
+    public void delete(long id) {
+        projectRepository.delete(id);
     }
 
     @Override
@@ -138,6 +117,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public byte[] getAvatar(String projectName) {
+        return projectRepository.findByName(projectName).getAvatar();
+    }
+
+    @Override
     public Set<IssueDTO> getIssues(String projectName) {
         return issueMapper.issuesToIssueDTOs(projectRepository.findByName(projectName).getIssues());
     }
@@ -150,5 +134,13 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Set<ProjectVersionDTO> getProjectVersions(String projectName) {
         return projectVersionMapper.projectVersionsToProjectVersionDTOs(projectRepository.findByName(projectName).getVersions());
+    }
+
+    @Override
+    public boolean checkName(String name) {
+        if (projectRepository.findByName(name) != null) {
+            return true;
+        }
+        return false;
     }
 }

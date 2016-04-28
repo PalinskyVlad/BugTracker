@@ -93,7 +93,7 @@ public class ProjectController {
     public void showImage(@RequestParam("name") String name, HttpServletResponse response, HttpServletRequest request)
             throws ServletException, IOException {
         response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        response.getOutputStream().write(projectService.getByName(name).getAvatar());
+        response.getOutputStream().write(projectService.getAvatar(name));
         response.getOutputStream().close();
     }
 }

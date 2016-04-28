@@ -7,14 +7,11 @@ public class ProjectComponentDTO {
     private long id;
     private String name;
     private String description;
-    private ProjectDTO projectDTO;
-    private Set<IssueDTO> issueDTOs = new HashSet<IssueDTO>();
 
-    public ProjectComponentDTO(long id, String name, ProjectDTO projectDTO, Set<IssueDTO> issueDTOs) {
+    public ProjectComponentDTO(long id, String name, String description) {
         this.id = id;
         this.name = name;
-        this.projectDTO = projectDTO;
-        this.issueDTOs = issueDTOs;
+        this.description = description;
     }
 
     public ProjectComponentDTO() {
@@ -42,21 +39,5 @@ public class ProjectComponentDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public ProjectDTO getProjectDTO() {
-        return projectDTO;
-    }
-
-    public void setProjectDTO(ProjectDTO projectDTO) {
-        this.projectDTO = projectDTO;
-    }
-
-    public Set<IssueDTO> getIssueDTOs() {
-        return issueDTOs;
-    }
-
-    public void setIssueDTOs(Set<IssueDTO> issueDTOs) {
-        this.issueDTOs = issueDTOs;
     }
 }

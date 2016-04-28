@@ -28,6 +28,7 @@ import java.util.Properties;
 @ComponentScan("com.bugtracker")
 public class WebAppConfig extends WebMvcConfigurerAdapter{
 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/pages/**").addResourceLocations("/pages/");
@@ -99,7 +100,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
         javaMailProperties.setProperty("mail.smtp.auth", "true");
         javaMailProperties.setProperty("mail.smtp.starttls.enable", "true");
         javaMailSender.setJavaMailProperties(javaMailProperties);
-
         return javaMailSender;
     }
 

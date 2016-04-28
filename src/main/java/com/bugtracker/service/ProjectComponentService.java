@@ -14,4 +14,5 @@ public interface ProjectComponentService {
     void delete(long id);
 
     Set<IssueDTO> getIssues(long id);
+    ProjectDTO getProject(long id);
 }

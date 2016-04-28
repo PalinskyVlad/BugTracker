@@ -22,24 +22,24 @@
 
             $.ajax({
              type: "POST",
-             url: "/showComponents",
+             url: "/components",
              data: {"projectName": projectName},
              dataType: "json",
                 success: function(data) {
                     for (var i in data) {
-                        showComponents.append("<li><input type='checkbox' id='" + i + "' name='components' value='" + i + "'><label for='" + i + "'>" + data[i] + "</label>");
+                        showComponents.append("<li><input type='checkbox' id='" + i + "' name='componentIndexes' value='" + i + "'><label for='" + i + "'>" + data[i] + "</label>");
                     }
                     }
             })
 
             $.ajax({
                 type: "POST",
-                url: "/showVersions",
+                url: "/versions",
                 data: {"projectName": projectName},
                 dataType: "json",
                 success: function(data) {
                     for (var i in data) {
-                        showVersions.append("<li><input type='checkbox' id='" + i + "' name='versions' value='" + i + "'><label for='" + i + "'>" + data[i] + "</label>");
+                        showVersions.append("<li><input type='checkbox' id='" + i + "' name='versionIndexes' value='" + i + "'><label for='" + i + "'>" + data[i] + "</label>");
                     }
                 }
             })
@@ -81,16 +81,16 @@
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"> <spring:message code="create.issue.issue.type.please.select"/> <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li><input type="radio" id="BUG" name="issueType" value="BUG"><label for="BUG"><img src="pages/images/Issue/IssueType/bug.png"> <spring:message code ="create.issue.issue.type.bug"/></label></li>
-                                    <li><input type="radio" id="NEW_FEATURE" name="issueType" value="NEW_FEATURE"><label for="NEW_FEATURE"><img src="pages/images/Issue/IssueType/newfeature.png"> <spring:message code ="create.issue.issue.type.new.feature"/></label></li>
-                                    <li><input type="radio" id="TASK" name="issueType" value="TASK"><label for="TASK"><img src="pages/images/Issue/IssueType/task.png"> <spring:message code ="create.issue.issue.type.task"/></label></li>
-                                    <li><input type="radio" id="IMPROVEMENT" name="issueType" value="IMPROVEMENT"><label for="IMPROVEMENT"><img src="pages/images/Issue/IssueType/improvement.png"> <spring:message code ="create.issue.issue.type.improvement"/></label></li>
-                                    <li><input type="radio" id="REFACTORING" name="issueType" value="REFACTORING"><label for="REFACTORING"><img src="pages/images/Issue/IssueType/refactoring.png"> <spring:message code ="create.issue.issue.type.refactoring"/></label></li>
-                                    <li><input type="radio" id="DEFECT" name="issueType" value="DEFECT"><label for="DEFECT"><img src="pages/images/Issue/IssueType/bug.png"> <spring:message code ="create.issue.issue.type.defect"/></label></li>
-                                    <li><input type="radio" id="STORY" name="issueType" value="STORY"><label for="STORY"><img src="pages/images/Issue/IssueType/story.png"> <spring:message code ="create.issue.issue.type.story"/></label></li>
-                                    <li><input type="radio" id="EPIC" name="issueType" value="EPIC"><label for="EPIC"><img src="pages/images/Issue/IssueType/epic.png"> <spring:message code ="create.issue.issue.type.epic"/></label></li>
-                                    <li><input type="radio" id="SUPPORT" name="issueType" value="SUPPORT"><label for="SUPPORT"><img src="pages/images/Issue/IssueType/sales.png"> <spring:message code ="create.issue.issue.type.support"/></label></li>
-                                    <li><input type="radio" id="PRUNING" name="issueType" value="PRUNING"><label for="PRUNING"><img src="pages/images/Issue/IssueType/pruning.png"> <spring:message code ="create.issue.issue.type.pruning"/></label></li>
+                                    <li><input type="radio" id="BUG" name="issueType" value="BUG"><label for="BUG"><img src="/pages/images/Issue/IssueType/bug.png"> <spring:message code ="create.issue.issue.type.bug"/></label></li>
+                                    <li><input type="radio" id="NEW_FEATURE" name="issueType" value="NEW_FEATURE"><label for="NEW_FEATURE"><img src="/pages/images/Issue/IssueType/newfeature.png"> <spring:message code ="create.issue.issue.type.new.feature"/></label></li>
+                                    <li><input type="radio" id="TASK" name="issueType" value="TASK"><label for="TASK"><img src="/pages/images/Issue/IssueType/task.png"> <spring:message code ="create.issue.issue.type.task"/></label></li>
+                                    <li><input type="radio" id="IMPROVEMENT" name="issueType" value="IMPROVEMENT"><label for="IMPROVEMENT"><img src="/pages/images/Issue/IssueType/improvement.png"> <spring:message code ="create.issue.issue.type.improvement"/></label></li>
+                                    <li><input type="radio" id="REFACTORING" name="issueType" value="REFACTORING"><label for="REFACTORING"><img src="/pages/images/Issue/IssueType/refactoring.png"> <spring:message code ="create.issue.issue.type.refactoring"/></label></li>
+                                    <li><input type="radio" id="DEFECT" name="issueType" value="DEFECT"><label for="DEFECT"><img src="/pages/images/Issue/IssueType/bug.png"> <spring:message code ="create.issue.issue.type.defect"/></label></li>
+                                    <li><input type="radio" id="STORY" name="issueType" value="STORY"><label for="STORY"><img src="/pages/images/Issue/IssueType/story.png"> <spring:message code ="create.issue.issue.type.story"/></label></li>
+                                    <li><input type="radio" id="EPIC" name="issueType" value="EPIC"><label for="EPIC"><img src="/pages/images/Issue/IssueType/epic.png"> <spring:message code ="create.issue.issue.type.epic"/></label></li>
+                                    <li><input type="radio" id="SUPPORT" name="issueType" value="SUPPORT"><label for="SUPPORT"><img src="/pages/images/Issue/IssueType/sales.png"> <spring:message code ="create.issue.issue.type.support"/></label></li>
+                                    <li><input type="radio" id="PRUNING" name="issueType" value="PRUNING"><label for="PRUNING"><img src="/pages/images/Issue/IssueType/pruning.png"> <spring:message code ="create.issue.issue.type.pruning"/></label></li>
                                 </ul>
                             </div>
                             </div>
@@ -110,11 +110,11 @@
                             <div class="col-lg-6">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><spring:message code ="create.issue.priority.please.select"/> <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li><input type="radio" id="BLOCKER" name="priority" value="BLOCKER"><label for="BLOCKER"><img src="pages/images/Issue/IssuePriority/blocker.png"> <spring:message code ="create.issue.priority.blocker"/></label></li>
-                                    <li><input type="radio" id="CRITICAL" name="priority" value="CRITICAL"><label for="CRITICAL"><img src="pages/images/Issue/IssuePriority/critical.png"> <spring:message code ="create.issue.priority.critical"/></label></li>
-                                    <li><input type="radio" id="MAJOR" name="priority" value="MAJOR"><label for="MAJOR"><img src="pages/images/Issue/IssuePriority/major.png"> <spring:message code ="create.issue.priority.major"/></label></li>
-                                    <li><input type="radio" id="MINOR" name="priority" value="MINOR"><label for="MINOR"><img src="pages/images/Issue/IssuePriority/minor.png"> <spring:message code ="create.issue.priority.minor"/></label></li>
-                                    <li><input type="radio" id="TRIVIAL" name="priority" value="TRIVIAL"><label for="TRIVIAL"><img src="pages/images/Issue/IssuePriority/trivial.png"> <spring:message code ="create.issue.priority.trivial"/></label></li>
+                                    <li><input type="radio" id="BLOCKER" name="priority" value="BLOCKER"><label for="BLOCKER"><img src="/pages/images/Issue/IssuePriority/blocker.png"> <spring:message code ="create.issue.priority.blocker"/></label></li>
+                                    <li><input type="radio" id="CRITICAL" name="priority" value="CRITICAL"><label for="CRITICAL"><img src="/pages/images/Issue/IssuePriority/critical.png"> <spring:message code ="create.issue.priority.critical"/></label></li>
+                                    <li><input type="radio" id="MAJOR" name="priority" value="MAJOR"><label for="MAJOR"><img src="/pages/images/Issue/IssuePriority/major.png"> <spring:message code ="create.issue.priority.major"/></label></li>
+                                    <li><input type="radio" id="MINOR" name="priority" value="MINOR"><label for="MINOR"><img src="/pages/images/Issue/IssuePriority/minor.png"> <spring:message code ="create.issue.priority.minor"/></label></li>
+                                    <li><input type="radio" id="TRIVIAL" name="priority" value="TRIVIAL"><label for="TRIVIAL"><img src="/pages/images/Issue/IssuePriority/trivial.png"> <spring:message code ="create.issue.priority.trivial"/></label></li>
                                 </ul>
                             </div>
                         </div>

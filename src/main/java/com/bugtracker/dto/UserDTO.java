@@ -15,10 +15,9 @@ public class UserDTO {
     private UserRoleEnum role;
     private String secretCode;
     private boolean confirmed;
-    private Set<IssueDTO> issueDTOs = new HashSet<IssueDTO>();
 
     public UserDTO(long id, String username, String email, String password, String firstName, String lastName
-                                , UserRoleEnum role, String secretCode, boolean confirmed, Set<IssueDTO> issueDTOs) {
+                                , UserRoleEnum role, String secretCode, boolean confirmed) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -28,7 +27,6 @@ public class UserDTO {
         this.role = role;
         this.secretCode = secretCode;
         this.confirmed = confirmed;
-        this.issueDTOs = issueDTOs;
     }
 
     public UserDTO() {
@@ -105,13 +103,5 @@ public class UserDTO {
 
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
-    }
-
-    public Set<IssueDTO> getIssueDTOs() {
-        return issueDTOs;
-    }
-
-    public void setIssueDTOs(Set<IssueDTO> issueDTOs) {
-        this.issueDTOs = issueDTOs;
     }
 }

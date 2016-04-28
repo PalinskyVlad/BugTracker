@@ -2,6 +2,7 @@ package com.bugtracker.service.impl;
 
 import com.bugtracker.dto.IssueDTO;
 import com.bugtracker.dto.ProjectComponentDTO;
+import com.bugtracker.dto.ProjectDTO;
 import com.bugtracker.dto.ProjectVersionDTO;
 import com.bugtracker.entity.Issue;
 import com.bugtracker.entity.Project;
@@ -10,6 +11,7 @@ import com.bugtracker.entity.ProjectVersion;
 import com.bugtracker.entity.enums.IssueStatusEnum;
 import com.bugtracker.mapper.IssueMapper;
 import com.bugtracker.mapper.ProjectComponentMapper;
+import com.bugtracker.mapper.ProjectMapper;
 import com.bugtracker.mapper.ProjectVersionMapper;
 import com.bugtracker.repository.ProjectComponentRepository;
 import com.bugtracker.repository.ProjectRepository;
@@ -19,7 +21,9 @@ import org.springframework.stereotype.Service;
 import com.bugtracker.repository.IssueRepository;
 import com.bugtracker.service.IssueService;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -41,15 +45,16 @@ public class IssueServiceImpl implements IssueService {
     private IssueMapper issueMapper;
 
     @Autowired
+    private ProjectMapper projectMapper;
+
+    @Autowired
     private ProjectComponentMapper projectComponentMapper;
 
     @Autowired
     private ProjectVersionMapper projectVersionMapper;
 
     @Override
-    public IssueDTO addIssue(IssueDTO issueDTO, long[] components, long[] versions, String projectName) {
-        ProjectComponent projectComponent;
-        ProjectVersion projectVersion;
+    public IssueDTO addIssue(IssueDTO issueDTO, long[] componentIndexes, long[] versionIndexes, String projectName) {
         issueDTO.setCreatedDate(new Date());
         issueDTO.setStatus(IssueStatusEnum.OPEN);
         Issue issue = issueMapper.issueDTOToIssue(issueDTO);
@@ -58,14 +63,28 @@ public class IssueServiceImpl implements IssueService {
         issue.setProject(project);
         project.getIssues().add(issue);
 
-        for(long id : components) {
-            projectComponent = projectComponentRepository.findOne(id);
+        List<Long> componentIndexesList = new ArrayList<Long>();
+
+        for(int i = 0; i < componentIndexes.length; i++) {
+            componentIndexesList.add(componentIndexes[i]);
+        }
+
+        List<ProjectComponent> componentList = projectComponentRepository.findAll(componentIndexesList);
+
+        for(ProjectComponent projectComponent : componentList) {
             issue.getComponents().add(projectComponent);
             projectComponent.getIssues().add(issue);
         }
 
-        for(long id : versions) {
-            projectVersion = projectVersionRepository.findOne(id);
+        List<Long> versionIndexesList = new ArrayList<Long>();
+
+        for(int i = 0; i < versionIndexes.length; i++) {
+            versionIndexesList.add(versionIndexes[i]);
+        }
+
+        List<ProjectVersion> versionList = projectVersionRepository.findAll(versionIndexesList);
+
+        for(ProjectVersion projectVersion : versionList) {
             issue.getVersions().add(projectVersion);
             projectVersion.getIssues().add(issue);
         }
@@ -76,18 +95,13 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public void delete(long id) {
-        issueRepository.delete(id);
-    }
-
-    @Override
     public IssueDTO getByName(String name) {
-        return issueMapper.issueToIssueDTO(issueRepository.getByName(name));
+        return issueMapper.issueToIssueDTO(issueRepository.findByName(name));
     }
 
     @Override
     public IssueDTO getById(long id) {
-        return issueMapper.issueToIssueDTO(issueRepository.getById(id));
+        return issueMapper.issueToIssueDTO(issueRepository.findById(id));
     }
 
     @Override
@@ -96,12 +110,30 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
+    public void delete(long id) {
+        issueRepository.delete(id);
+    }
+
+    @Override
+    public ProjectDTO getProject(long id) {
+        return projectMapper.projectToProjectDTO(issueRepository.findById(id).getProject());
+    }
+
+    @Override
     public Set<ProjectComponentDTO> getProjectComponents(long id) {
-        return projectComponentMapper.projectComponentsToProjectComponentDTOs(issueRepository.getById(id).getComponents());
+        return projectComponentMapper.projectComponentsToProjectComponentDTOs(issueRepository.findById(id).getComponents());
     }
 
     @Override
     public Set<ProjectVersionDTO> getProjectVersions(long id) {
-        return projectVersionMapper.projectVersionsToProjectVersionDTOs(issueRepository.getById(id).getVersions());
+        return projectVersionMapper.projectVersionsToProjectVersionDTOs(issueRepository.findById(id).getVersions());
+    }
+
+    @Override
+    public boolean checkName(String name) {
+        if (issueRepository.findByName(name) != null) {
+            return true;
+        }
+        return false;
     }
 }

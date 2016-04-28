@@ -22,13 +22,12 @@ public class ProjectComponent {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "components")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "components")
     private Set<Issue> issues = new HashSet<Issue>();
 
     public ProjectComponent() {
 
     }
-
 
     public long getId() {
         return id;

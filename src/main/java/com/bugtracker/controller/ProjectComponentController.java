@@ -51,7 +51,7 @@ public class ProjectComponentController {
 
     @RequestMapping(value = "{projectName}/components/{id}", method = RequestMethod.GET)
     public String getProject(@PathVariable String projectName, @PathVariable long id, Model model) {
-        model.addAttribute("project", projectService.getByProjectComponentId(id));
+        model.addAttribute("project", projectComponentService.getProject(id));
         model.addAttribute("projectComponent", projectComponentService.getById(id));
         model.addAttribute("issues", projectComponentService.getIssues(id));
         return "user/projectComponent";

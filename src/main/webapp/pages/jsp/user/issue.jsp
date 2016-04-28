@@ -3,16 +3,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><spring:message code="component"/>: ${issue.name}</title>
+    <title><spring:message code="issue"/>: ${issue.name}</title>
 </head>
 <body>
 <jsp:include page='../../jspf/navigation.jsp' />
+<jsp:include page='../../jspf/deleteIssueForm.jsp'/>
+
 <div class="row" style="margin-right: 0; margin-top: 0; padding-top: -20px; height: 100%">
 
     <jsp:include page='../../jspf/projectMenu.jsp'/>
 
     <div class="col-lg-9" style="margin-left: 1%; margin-top: 1%">
         <span><a href="#">Team name </a>/<a href="/${project.name}"> ${project.name}</a></span>
+
+        <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#deleteIssue" style="background-color: #eeeeee"><spring:message code="project.issue.delete"/></button>
 
         <h2><spring:message code="issue"/>: ${issue.name}</h2>
         <hr>
@@ -37,11 +41,11 @@
                     <c:if test="${issue.priority  == 'TRIVIAL'}"><li class="list-group-item"><strong style="color: #707070"><spring:message code="priority"/> </strong><span><img src="/pages/images/Issue/IssuePriority/trivial.png"> <spring:message code ="create.issue.priority.trivial"/></span></li></c:if>
                     <li class="list-group-item"><strong style="color: #707070"><spring:message code="versions"/></strong>
                         <c:forEach items="${projectComponents}" var="item">
-                            <a href="/projectComponent/${item.id}"><c:out value="${item.name}"/> </a>
+                            <a href="/${project.name}/components/${item.id}"><c:out value="${item.name}"/> </a>
                         </c:forEach></li>
                     <li class="list-group-item"><strong style="color: #707070"><spring:message code="components"/></strong>
                         <c:forEach items="${projectVersions}" var="item">
-                            <a href="/${project.name}/components/${item.id}"><c:out value="${item.name}"/> </a>
+                            <a href="/${project.name}/versions/${item.id}"><c:out value="${item.name}"/> </a>
                         </c:forEach></li>
                     </li>
                     <li class="list-group-item"><strong style="color: #707070"><spring:message code="environment"/></strong> ${issue.environment}</li>

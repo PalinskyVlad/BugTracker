@@ -11,23 +11,20 @@ import java.util.Map;
 import java.util.Set;
 
 public interface ProjectService {
-
     ProjectDTO addProject(MultipartFile image, ProjectDTO projectDTO);
-    void delete(long id);
-    void delete(String projectName);
     ProjectDTO getByName(String name);
     ProjectDTO getById(long id);
-    ProjectDTO getByIssueId(long id);
-    ProjectDTO getByProjectComponentId(long id);
     ProjectDTO editProject(MultipartFile image, String name, ProjectDTO editedProjectDTO);
+    void delete(long id);
+
     List<String> getAllNames();
     Map<Long, String> getAllComponentsNameAndId(String projectName);
     Map<Long, String> getAllVersionsNameAndId(String projectName);
 
+    byte[] getAvatar(String projectName);
     Set<IssueDTO> getIssues(String projectName);
     Set<ProjectVersionDTO> getProjectVersions(String projectName);
     Set<ProjectComponentDTO> getProjectComponents(String projectName);
 
-
-
+    boolean checkName(String name);
 }
