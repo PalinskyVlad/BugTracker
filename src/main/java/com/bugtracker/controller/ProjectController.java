@@ -38,8 +38,9 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/projects", method = RequestMethod.POST, params = {"create"})
-    public String createProject(@Valid @ModelAttribute("projectDTO") ProjectDTO projectDTO, BindingResult result,
-                                Model model, MultipartFile  image) {
+    public String createProject(@RequestParam("image") MultipartFile  image,
+                                @Valid @ModelAttribute("projectDTO") ProjectDTO projectDTO, BindingResult result,
+                                Model model) {
         if (result.hasErrors()) {
             return "redirect:/";
         }
